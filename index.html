@@ -1,172 +1,437 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>About me</title>
-    <link rel="stylesheet" type="text/css" href="/assets/styles/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио Java-разработчика</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .experience-period {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .experience-item {
+            margin-bottom: 30px;
+        }
+
+        .experience-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .experience-description {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .freelance-info {
+            background-color: rgba(37, 99, 235, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .platforms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .platform {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .platform i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            min-width: 120px;
+        }
+
+        .skill-bar {
+            flex-grow: 1;
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+
+        .skill-level.spring { width: 85%; }
+        .skill-level.docker { width: 80%; }
+        .skill-level.linux { width: 75%; }
+        .skill_level.k8s { width: 65%; }
+        .skill-level.api { width: 90%; }
+        .skill-level.db { width: 80%; }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--light-gray);
+            color: var(--gray);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--gray);
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+    </style>
 </head>
 <body>
-    <div class="main">
-        <div class="header">
-            <a href="#">
-                <span>EN</span>
-            </a>
-            <span>|</span>
-            <a href="/ru">
-                <span>RU</span>
-            </a>
-        </div>
-        <div class="content">
-            <div class="content__hello">
-                <img class="content__hello-img" src="assets/img/avatar.png" alt="Avatar">
-                <div class="content__hello-text">
-                    <span class="content__name">
-                        <a href="/"> Hey, I'm Sviatoslav.</a>
-                    </span>
-                    <span class="content__description">This is my template <br/> for simple and beauty portfolio</span>
-                    <nav class="content__social">
-                        <a href="#link" target="_blank" class="content__social-item">
-                            <img src="assets/img/icons/twitter.svg" alt="Twitter">
-                            <span>Twitter</span>
-                        </a>
-                        <a href="#link" target="_blank" class="content__social-item">
-                            <img src="assets/img/icons/facebook.svg" alt="Facebook">
-                            <span>Facebook</span>
-                        </a>
-                        <a href="#link" target="_blank" class="content__social-item">
-                            <img src="assets/img/icons/in.svg" alt="LinkedIn">
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="#link" target="_blank" class="content__social-item">
-                            <img src="assets/img/icons/telegram.svg" alt="Telegram">
-                            <span>Telegram</span>
-                        </a>
-                    </nav>
+    <div class="container">
+        <header>
+            <h1>Java-разработчик</h1>
+            <p class="tagline">Создаю backend-решения на Spring Boot, Docker и Kubernetes</p>
+            <div class="experience-period">Июнь 2025 — сейчас (7 месяцев)</div>
+        </header>
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="card">
+                    <h2 class="section-title"><i class="fas fa-briefcase"></i> Опыт работы</h2>
+                    
+                    <div class="experience-item">
+                        <h3 class="experience-title">Разработка backend-сервиса таск-трекера</h3>
+                        <p class="experience-description">
+                            Почти с нуля создал backend-сервис для таск-трекера на Spring Boot. По сути, заставил джавовское приложение общаться с миром через REST API и дружить с базой данных. Чтобы заказчик мог легко всё потестировать, упаковал это в Docker-контейнер и даже закинул в Kubernetes (пришлось гуглить, но всё завелось!). В итоге, развернуть тестовую среду стало можно за пару минут, а не часов.
+                        </p>
+                        <div class="tech-list">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <h3 class="experience-title">Работа в Linux среде</h3>
+                        <p class="experience-description">
+                            Освоил Linux-сервер (сначала боялся командной строки, но потом втянулся) и настроил там деплой нашего приложения. Всё автоматизировал с помощью Docker, чтобы заказчик мог запускать новые версии одной командой.
+                        </p>
+                        <div class="tech-list">
+                            <span class="tech-tag">Linux</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">CI/CD</span>
+                            <span class="tech-tag">Bash</span>
+                            <span class="tech-tag">Автоматизация</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quote">
+                        "Выше я перечислил два лучших заказа за 6 месяцев фриланса. В целом все заказы которые я брал делал зачастую с нуля ничего не зная о технологиях и изучал их в процессе выполнения заказа."
+                    </div>
+                </div>
+                
+                <div class="freelance-info">
+                    <h3 class="section-title"><i class="fas fa-rocket"></i> Фриланс-платформы</h3>
+                    <p>Чаще всего я помогал писать курсовые по программированию на Kwork, а на Fiverr были перечисленные заказы и схожие с ними.</p>
+                    
+                    <div class="platforms">
+                        <div class="platform">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <div style="font-weight: 600;">Kwork</div>
+                                <div style="font-size: 0.9rem;">Курсовые работы</div>
+                            </div>
+                        </div>
+                        <div class="platform">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <div style="font-weight: 600;">Fiverr</div>
+                                <div style="font-size: 0.9rem;">Коммерческие проекты</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="content__main">
-                <div class="content__main-item">
-                    <div class="main-item__description">
-                        <p>This is the main page with examples of the blocks. You can combine them in the way you want.</p>
-                        <p>Check <a href="/example">the example</a> page to see how these blocks could be combined.</p>
-                    </div>
-                </div>
-                <h1 class="content__about-header">Icons</h1>
-                <div class="content__main-item">
-                    <a href="#" class="content__social-item">
-                        <img src="assets/img/icons/discord.svg" alt="discord">
-                        <img src="assets/img/icons/dribbble.svg" alt="dribbble">
-                        <img src="assets/img/icons/facebook.svg" alt="facebook">
-                        <img src="assets/img/icons/github.svg" alt="github">
-                        <img src="assets/img/icons/in.svg" alt="linkedin">
-                        <img src="assets/img/icons/instagram.svg" alt="instagram">
-                        <img src="assets/img/icons/medium.svg" alt="medium">
-                        <img src="assets/img/icons/skype.svg" alt="skype">
-                        <img src="assets/img/icons/telegram.svg" alt="telegram">
-                        <img src="assets/img/icons/twitch.svg" alt="twitch">
-                        <img src="assets/img/icons/twitter.svg" alt="twitter">
-                        <img src="assets/img/icons/vk.svg" alt="vk">
-                        <img src="assets/img/icons/whatsapp.svg" alt="whatsapp">
-                        <img src="assets/img/icons/youtube.svg" alt="youtube">
-                    </a>
-                </div>
-                <h1 class="content__about-header">Blocks</h1>
-                <h2 class="content__subheader">Text</h2>
-                <div class="content__main-item">
-                    <div class="main-item__description">
-                        <p>I did a huge way to my current point. From my childhood, I've chosen that I will be a developer. Not just developer but Developer. My way is about doing my best. I always try to find out real reasons and try to find the best solution. I'm thinking not only about code and code quality but also about business logic and customer satisfaction.</p>
-                    </div>
-                </div>
-                <div class="content__main-item">
-                    <div class="main-item__description">
-                        <p>Each client that I has was happy to work with me. Almost every second client comes to me after recommendations. I guess it says a lot.</p>
-                    </div>
-                </div>
-                <h2 class="content__subheader">Projects</h2>
-                <div class="content__main-item project">
-                    <a data-fslightbox href="assets/img/project.png">
-                        <img src="assets/img/project.png" alt="project1">
-                    </a>
-                    <div>
-                        <div class="main-item__title">
-                            <a href="/example/project.html"><span>Project 1</span></a>
+            
+            <div class="right-column">
+                <div class="card">
+                    <h2 class="section-title"><i class="fas fa-cogs"></i> Навыки</h2>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Spring Boot</div>
+                        <div class="skill-bar">
+                            <div class="skill-level spring"></div>
                         </div>
-                        <div class="main-item__description">
-                            <p>This project is my diamond. I'm very proud of work that I did there.
-                            This customer found me when project was in almost MVP state. But code quality was not good enough, so I rebuild the whole system and made a strong architecture basement</p>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Docker</div>
+                        <div class="skill-bar">
+                            <div class="skill-level docker"></div>
                         </div>
-                        <div class="main-item__subdescription">
-                            <p><span>Stack:</span> Vue.js, Laravel, Socket.io</p>
-                            <p class="main-item__links"><a href=""><span>Source Code</span></a><span>|</span><a href=""><span>Preview</span></a> </p>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Linux</div>
+                        <div class="skill-bar">
+                            <div class="skill-level linux"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Kubernetes</div>
+                        <div class="skill-bar">
+                            <div class="skill-level k8s"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">REST API</div>
+                        <div class="skill-bar">
+                            <div class="skill-level api"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Базы данных</div>
+                        <div class="skill-bar">
+                            <div class="skill-level db"></div>
                         </div>
                     </div>
                 </div>
-                <div class="content__main-item project">
-                    <a data-fslightbox href="assets/img/project2.png">
-                        <img src="assets/img/project2.png" alt="project2">
-                    </a>
-                    <div>
-                        <div class="main-item__title">
-                            <a href="/example/project.html"><span>Project 2</span></a>
-                        </div>
-                        <div class="main-item__description">
-                            <p>I worked with this project for 1,5 years.
-                                <br/>I've built the whole system from scratch, and now it's fully working project
-                                with a bunch of happy customers</p>
-                        </div>
-                        <div class="main-item__subdescription">
-                            <p><span>Stack:</span> Nuxt.js, Laravel</p>
-                            <p class="main-item__links"><a href=""><span>Source Code</span></a><span>|</span><a href=""><span>Preview</span></a> </p>
-                        </div>
+                
+                <div class="card">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Обо мне</h2>
+                    <p style="margin-bottom: 15px;">Java-разработчик с опытом создания backend-сервисов на Spring Boot. Специализируюсь на разработке с нуля, быстро осваиваю новые технологии.</p>
+                    <p>Умею не только писать код, но и упаковывать приложения в Docker, настраивать развертывание в Kubernetes и автоматизировать процессы деплоя.</p>
+                    
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--light-gray);">
+                        <h3 class="section-title" style="font-size: 1.2rem;"><i class="fas fa-graduation-cap"></i> Обучение</h3>
+                        <p>Освоил все технологии в процессе выполнения заказов, изучая документацию и решая конкретные задачи.</p>
                     </div>
-                </div>
-                <h2 class="content__subheader">Posts</h2>
-                <div class="content__main-item post">
-                    <article>
-                        <h2 class="main-item__title">
-                            <a href="#linktopost">A simple thought</a>
-                        </h2>
-                        <p class="main-item__date">Nov 22, 2022</p>
-                        <div class="main-item__description">
-                            <p>Thousands of candles can be lighted from a single candle, and the life of the candle will not be shortened. Happiness never decreases by being shared.</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="content__main-item post">
-                    <article>
-                        <h2 class="main-item__title">
-                            <a href="#linktopost">A simple thought 2</a>
-                        </h2>
-                        <p class="main-item__date">Sep 13, 2022</p>
-                        <div class="main-item__description">
-                            <p>Be more concerned with your character than your reputation, because your character is what you really are, while your reputation is merely what others think you are.</p>
-                        </div>
-                    </article>
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <div>
-                <span>© Sviatoslav Zhilichev</span>
+        
+        <footer>
+            <p>Это портфолио создано для размещения на GitHub</p>
+            <div class="footer-links">
+                <a href="https://github.com" class="footer-link" target="_blank">GitHub</a>
+                <a href="#" class="footer-link">Резюме</a>
+                <a href="#" class="footer-link">Контакты</a>
             </div>
-            <div>
-                <nav class="footer__social">
-                    <a href="#link" target="_blank" class="footer__social-item">
-                        <img src="assets/img/icons/twitter.svg" alt="Twitter">
-                    </a>
-                    <a href="#link" target="_blank" class="footer__social-item">
-                        <img src="assets/img/icons/facebook.svg" alt="Facebook">
-                    </a>
-                    <a href="#link" target="_blank" class="footer__social-item">
-                        <img src="assets/img/icons/in.svg" alt="LinkedIn">
-                    </a>
-                    <a href="#link" target="_blank" class="footer__social-item">
-                        <img src="assets/img/icons/telegram.svg" alt="Telegram">
-                    </a>
-                </nav>
-            </div>
-        </div>
+            <p style="margin-top: 20px;">© 2025 Java-разработчик портфолио</p>
+        </footer>
     </div>
-    <script src="assets/scripts/fslightbox.js"></script>
+
+    <script>
+        // Анимация для прогресс-баров при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const skillBars = document.querySelectorAll('.skill-level');
+            
+            // Сначала скрываем все прогресс-бары
+            skillBars.forEach(bar => {
+                bar.style.width = '0';
+            });
+            
+            // Затем анимируем их появление
+            setTimeout(() => {
+                skillBars.forEach(bar => {
+                    const targetWidth = bar.classList.contains('spring') ? '85%' :
+                                      bar.classList.contains('docker') ? '80%' :
+                                      bar.classList.contains('linux') ? '75%' :
+                                      bar.classList.contains('k8s') ? '65%' :
+                                      bar.classList.contains('api') ? '90%' :
+                                      bar.classList.contains('db') ? '80%' : '0';
+                    
+                    bar.style.transition = 'width 1.5s ease-in-out';
+                    bar.style.width = targetWidth;
+                });
+            }, 300);
+            
+            // Анимация для карточек при прокрутке
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Наблюдаем за карточками
+            const cards = document.querySelectorAll('.card, .platform, .freelance-info');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
 </body>
 </html>

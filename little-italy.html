@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Little Italy — Zanini Restaurants</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Little Italy — итальянское бистро ресторанной группы Zanini Restaurants. Настояя пицца, паста и атмосфера Неаполя.">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body class="page-restaurant">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo">Zanini Restaurants</a>
+        <nav class="main-nav" id="main-nav">
+          <a href="index.html#restaurants">Рестораны</a>
+          <a href="index.html#about">О нас</a>
+          <a href="career.html">Карьера</a>
+          <a href="news.html">Новости и афиша</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+        <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" id="nav-toggle"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+        <a href="#booking" class="btn btn-primary header-cta">Забронировать</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero hero-restaurant">
+        <div class="hero-media hero-overlay">
+          <div class="container hero-content">
+            <p class="hero-kicker">Ресторанная группа Zanini</p>
+            <h1>Little Italy</h1>
+            <p class="hero-text">
+              Камерное итальянское бистро с атмосферой Неаполя у Комиссаржевского театра.
+            </p>
+            <div class="hero-meta">
+              <p>Адрес: Санкт-Петербург, Итальянская ул., 10/5</p>
+              <p>Режим работы: ежедневно, 11:00–КАК СКАЖЕТ ДЖОННИ</p>
+            </div>
+            <div class="hero-actions">
+              <a href="#booking" class="btn btn-primary">Забронировать столик</a>
+              <a href="#menu" class="btn btn-secondary">Посмотреть меню</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About restaurant -->
+      <section class="section">
+        <div class="container section-split">
+          <div>
+            <h2>О ресторане</h2>
+            <p>
+              Little Italy — первый ресторан Mirco Zanini в Петербурге, открытый в 2012 году. Небольшое пространство
+              с открытой кухней, печью для пиццы и шумным залом, где гости чувствуют себя как в семейном тратториа.
+            </p>
+            <p>
+              В меню — хрусткая неаполитанская пицца, свежая паста, простые, но честные закуски и домашние десерты.
+              Мы готовим из понятных продуктов, уважая сезонность и традиции итальянской кухни.
+            </p>
+          </div>
+          <aside class="highlight-card">
+            <h3>Сальваторе — сердце Little Italy</h3>
+            <p>
+              В Little Italy гостей встречает Сальваторе — бывший нападающий «Наполи» в Серии A. Он переехал в Россию
+              из-за любви и нашёл новый дом в Петербурге.
+            </p>
+            <p>
+              Сегодня Сальваторе отвечает за атмосферу зала: он помнит постоянных гостей по именам, с улыбкой
+              рассказывает истории из футбольной карьеры и помогает подобрать блюдо под ваше настроение.
+            </p>
+            <div class="highlight-photo">
+              <img src="assets/salvatore.png" alt="Сальваторе — Little Italy Trattoria" width="400" height="300">
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Menu -->
+      <section id="menu" class="section section-muted">
+        <div class="container">
+          <header class="section-header section-header-row">
+            <div>
+              <h2>Меню Little Italy</h2>
+              <p>Классика неаполитанской траттории и любимые хиты гостей.</p>
+            </div>
+            <a href="#" class="btn btn-ghost">Скачать меню (PDF)</a>
+          </header>
+
+          <div class="menu-tabs" data-menu-tabs>
+            <div class="menu-tabs-nav">
+              <button class="menu-tab active" data-menu-category="starters">Закуски</button>
+              <button class="menu-tab" data-menu-category="pizza">Пицца</button>
+              <button class="menu-tab" data-menu-category="pasta">Паста</button>
+              <button class="menu-tab" data-menu-category="desserts">Десерты</button>
+            </div>
+            <div class="menu-list" id="menu-list">
+              <!-- JS заполнит примерное меню -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Атмосфера Little Italy</h2>
+            <p>Живой зал, открытая кухня, запах свежей пиццы и итальянские голоса.</p>
+          </header>
+          <div class="gallery-grid">
+            <div class="gallery-item placeholder-photo"><span>Интерьер</span></div>
+            <div class="gallery-item placeholder-photo"><span>Пицца</span></div>
+            <div class="gallery-item placeholder-photo"><span>Открытая кухня</span></div>
+            <div class="gallery-item placeholder-photo"><span>Команда</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section class="section section-muted">
+        <div class="container">
+          <header class="section-header">
+            <h2>Команда Little Italy</h2>
+            <p>Люди, которые делают ваш вечер особенным.</p>
+          </header>
+          <div class="cards-grid cards-grid-3">
+            <article class="card">
+              <div class="card-media"><img src="assets/dmitry.png" alt="Дмитрий, шеф-повар Little Italy" width="400" height="300"></div>
+              <div class="card-body">
+                <h3>Дмитрий шеф-шарманда</h3>
+                <p>Отвечает за кухню Little Italy и создаёт меню в духе южного Узбекистана ой, Италии.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-media"><img src="assets/johnny.png" alt="Джонни, управляющий Little Italy" width="400" height="300"></div>
+              <div class="card-body">
+                <h3>Джонни</h3>
+                <p>Следит за тем, чтобы каждый гость чувствовал себя нужным и особенным.</p>
+                <p>Так же в обязонности входит соблюдение строгого режима додепа.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-media"><img src="assets/salvatore.png" alt="Сальваторе" width="400" height="300"></div>
+              <div class="card-body">
+                <h3>Сальваторе</h3>
+                <p>Бывший нападающий «Наполи» и главный человек по атмосфере в зале.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events -->
+      <section class="section">
+        <div class="container">
+          <header class="section-header section-header-row">
+            <div>
+              <h2>События и спецпредложения</h2>
+              <p>Следите за специальными вечерами и акциями Little Italy.</p>
+            </div>
+            <a href="news.html" class="btn btn-ghost">Все события</a>
+          </header>
+          <div class="cards-grid cards-grid-2">
+            <article class="card">
+              <p class="tag">Афиша</p>
+              <h3>Вечера Серии A</h3>
+              <p class="meta">Каждый день</p>
+              <p>Трансляции матчей итальянского чемпионата , специальное меню фрибетов и фирменные закуски.</p>
+            </article>
+            <article class="card">
+              <p class="tag">Спецпредложение</p>
+              <h3>Пицца для компании из 4 лудоманов</h3>
+              <p class="meta">По будням до 18:00</p>
+              <p>Сет из трёх пицц по специальной цене для компаний от четырёх гостей.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Map & booking -->
+      <section class="section section-muted" id="booking">
+        <div class="container section-split section-split-reverse">
+          <div>
+            <h2>Как добраться</h2>
+            <div class="map-placeholder">
+              <p>Здесь будет карта (Яндекс.Карты или Google Maps) с меткой Little Italy.</p>
+            </div>
+          </div>
+          <div>
+            <h2>Забронировать столик</h2>
+            <form class="form-grid" id="booking-form-little-italy">
+              <input type="hidden" name="restaurant" value="Little Italy">
+              <div class="form-field">
+                <label for="date-li">Дата</label>
+                <input type="date" id="date-li" name="date" required>
+              </div>
+              <div class="form-field">
+                <label for="time-li">Время</label>
+                <select id="time-li" name="time" required>
+                  <option value="">Выберите время</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="guests-li">Гостей</label>
+                <input type="number" id="guests-li" name="guests" min="1" max="12" value="2" required>
+              </div>
+              <div class="form-field">
+                <label for="name-li">Имя</label>
+                <input type="text" id="name-li" name="name" required>
+              </div>
+              <div class="form-field">
+                <label for="contact-li">Телефон или email</label>
+                <input type="text" id="contact-li" name="contact" required>
+              </div>
+              <div class="form-field form-field-full">
+                <label for="comment-li">Комментарий</label>
+                <textarea id="comment-li" name="comment" rows="3"></textarea>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary">Забронировать</button>
+                <p class="form-consent">
+                  Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <a href="index.html" class="logo">Zanini Restaurants</a>
+          <p class="footer-copy">© Zanini Restaurants, 2012–2026</p>
+        </div>
+        <div class="footer-block">
+          <h4>Little Italy</h4>
+          <p>Санкт-Петербург, ул. Примерная, д. 1</p>
+          <p>Телефон: <a href="tel:+78120000000">+7 (812) 000-00-00</a></p>
+        </div>
+        <div class="footer-block">
+          <h4>Режим работы</h4>
+          <p>Ежедневно, 11:00–00:00</p>
+        </div>
+        <div class="footer-block">
+          <h4>Бронь</h4>
+          <a href="#booking" class="btn btn-ghost btn-small">Забронировать столик</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
+

@@ -1,15 +1,10 @@
+import { Suspense } from "react";
+
+import { ContactMessageDraft } from "@/components/forms/contact-message-draft";
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/ui/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSettings } from "@/lib/site";
-
-type PageProps = {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-};
-
-function asString(value: string | string[] | undefined) {
-  return Array.isArray(value) ? value[0] : value;
-}
 
 export const metadata = buildMetadata({
   title: "Контакты",
@@ -17,10 +12,8 @@ export const metadata = buildMetadata({
   path: "/contacts"
 });
 
-export default async function ContactsPage({ searchParams }: PageProps) {
+export default async function ContactsPage() {
   const settings = await getSettings();
-  const params = await searchParams;
-  const message = asString(params.message);
 
   return (
     <>
@@ -47,12 +40,9 @@ export default async function ContactsPage({ searchParams }: PageProps) {
           </div>
 
           <div className="stack">
-            {message ? (
-              <div className="card stack">
-                <span className="eyebrow">Черновик из калькулятора</span>
-                <p>{message}</p>
-              </div>
-            ) : null}
+            <Suspense fallback={null}>
+              <ContactMessageDraft />
+            </Suspense>
             <ContactForm source="contacts" />
           </div>
         </div>

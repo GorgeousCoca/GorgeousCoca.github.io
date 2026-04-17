@@ -3,6 +3,8 @@ import type { MetadataRoute } from "next";
 import { getBlogPosts, getProducts, getProjects, getServices, getStoneSamples } from "@/lib/site";
 import { absoluteUrl } from "@/lib/utils";
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, stones, projects, services, posts] = await Promise.all([
     getProducts(),

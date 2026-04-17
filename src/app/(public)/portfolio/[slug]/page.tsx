@@ -1,0 +1,100 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { ContactForm } from "@/components/forms/contact-form";
+import { LightboxGallery } from "@/components/ui/lightbox-gallery";
+import { PageHero } from "@/components/ui/content";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { getProjectBySlug, getProjects } from "@/lib/site";
+
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) {
+    return {};
+  }
+
+  return buildMetadata({
+    title: project.metaTitle ?? project.title,
+    description: project.metaDescription ?? project.summary,
+    path: `/portfolio/${slug}`
+  });
+}
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export default async function ProjectPage({ params }: PageProps) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  return (
+    <>
+      <PageHero eyebrow={project.category} title={project.title} description={project.description} />
+
+      <section className="section">
+        <div className="container grid grid-2">
+          <div className="stack">
+            <div className="grid grid-2">
+              <div className="card media-card">
+                <div className="media-placeholder" style={{ minHeight: 260 }} />
+                <div className="media-card__content">
+                  <strong>До</strong>
+                </div>
+              </div>
+              <div className="card media-card">
+                <div className="media-placeholder" style={{ minHeight: 260 }} />
+                <div className="media-card__content">
+                  <strong>После</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="card stack">
+              <h2>Комментарий клиента</h2>
+              <p>{project.testimonial ?? "Отзыв будет добавлен после публикации проекта."}</p>
+            </div>
+
+            <LightboxGallery items={project.gallery} title={project.title} />
+          </div>
+
+          <div className="stack">
+            <div className="card stack">
+              <h2>Параметры проекта</h2>
+              <p>Локация: {project.location}</p>
+              <p>Категория: {project.category}</p>
+              <div className="pill-list">
+                {project.productRefs.map((item) => (
+                  <span key={item} className="pill">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="card stack">
+              <h2>Следующий шаг</h2>
+              <p>Покажите свой проект, и мы подготовим точное предложение по материалу, срокам и монтажу.</p>
+              <div className="btn-row">
+                <Link className="button" href="/calculator">
+                  Рассчитать стоимость
+                </Link>
+              </div>
+            </div>
+            <ContactForm source={`project:${project.slug}`} compact />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

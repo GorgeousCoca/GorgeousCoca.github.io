@@ -18,7 +18,8 @@ npm run dev
 3. В поле **Source** выбрать **GitHub Actions**.
 4. После пуша в `main` выполнится workflow `.github/workflows/deploy-pages.yml`.
 5. Сайт будет доступен по адресу:
-   `https://<owner>.github.io/<repo>/`
+   - `https://<owner>.github.io/<repo>/` для обычного репозитория
+   - `https://<owner>.github.io/` если репозиторий называется `<owner>.github.io`
 
 ## Ограничения Pages-версии
 

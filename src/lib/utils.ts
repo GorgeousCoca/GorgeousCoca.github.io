@@ -12,7 +12,10 @@ export function slugToTitle(value: string) {
 
 export function absoluteUrl(path = "/") {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const inferredBasePath = process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split("/")[1]}` : "";
+  const [repositoryOwner = "", repositoryName = ""] = (process.env.GITHUB_REPOSITORY ?? "").split("/");
+  const isUserPagesRepo =
+    repositoryOwner && repositoryName && repositoryName.toLowerCase() === `${repositoryOwner.toLowerCase()}.github.io`;
+  const inferredBasePath = repositoryName && !isUserPagesRepo ? `/${repositoryName}` : "";
   const configuredBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? inferredBasePath;
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const withBasePath =

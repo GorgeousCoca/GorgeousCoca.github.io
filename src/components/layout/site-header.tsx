@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import type { CompanySettings } from "@/types/content";
 
 const navItems = [
-  { href: "/catalog", label: "Каталог" },
   { href: "/catalog-kamnya", label: "Каталог камня" },
   { href: "/portfolio", label: "Портфолио" },
   { href: "/services", label: "Услуги" },
@@ -17,9 +17,23 @@ const navItems = [
 
 export function SiteHeader({ settings }: { settings: CompanySettings }) {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isStoneCatalogTheme = pathname.startsWith("/catalog-kamnya");
+
+  useEffect(() => {
+    if (isStoneCatalogTheme) {
+      document.body.classList.add("catalog-emerald-theme");
+    } else {
+      document.body.classList.remove("catalog-emerald-theme");
+    }
+
+    return () => {
+      document.body.classList.remove("catalog-emerald-theme");
+    };
+  }, [isStoneCatalogTheme, pathname]);
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${isStoneCatalogTheme ? "site-header--emerald" : ""}`.trim()}>
       <div className="container">
         <div className="site-header__inner">
           <Link className="site-brand" href="/">

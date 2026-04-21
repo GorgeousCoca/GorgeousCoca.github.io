@@ -1,6 +1,14 @@
+import Link from "next/link";
+import Image from "next/image";
+
 import { PageHero } from "@/components/ui/content";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getCertificates, getTeamMembers } from "@/lib/site";
+import { getTeamMembers } from "@/lib/site";
+
+const socialLinks = {
+  vk: "https://vk.com/club230045850?ysclid=mo5ny4mikt343003951",
+  avito: "https://www.avito.ru/"
+};
 
 export const metadata = buildMetadata({
   title: "О компании",
@@ -9,7 +17,7 @@ export const metadata = buildMetadata({
 });
 
 export default async function AboutPage() {
-  const [team, certificates] = await Promise.all([getTeamMembers(), getCertificates()]);
+  const team = await getTeamMembers();
 
   return (
     <>
@@ -28,9 +36,26 @@ export default async function AboutPage() {
               Санкт-Петербурге. Основной принцип компании — сочетать точную технологию с понятным
               клиентским сервисом.
             </p>
+            <div className="metrics-grid">
+              <div className="metric-card stack">
+                <strong>Премиальная детализация</strong>
+                <span className="muted">Работаем на точность кромок, стыков и примыканий.</span>
+              </div>
+              <div className="metric-card stack">
+                <strong>Своя команда</strong>
+                <span className="muted">Без анонимных подрядчиков на критичных этапах.</span>
+              </div>
+            </div>
           </div>
           <div className="card media-card">
-            <div className="media-placeholder" style={{ minHeight: 320 }} />
+            <Image
+              className="media-image"
+              src="/images/quartz-project-composition.svg"
+              alt="Производственный подход ArtellRock"
+              width={1400}
+              height={980}
+              style={{ height: 320 }}
+            />
             <div className="media-card__content">
               <strong>Производство</strong>
               <p>Собственный участок обработки и сборки изделий.</p>
@@ -47,9 +72,15 @@ export default async function AboutPage() {
             <p>Страница команды — одна из самых важных в процессе принятия решения.</p>
           </div>
           <div className="grid grid-3">
-            {team.map((member) => (
+            {team.map((member, index) => (
               <article key={member.id} className="card media-card">
-                <div className="media-placeholder" />
+                <Image
+                  className="media-image"
+                  src={index === 0 ? "/images/quartz-hero-editorial.svg" : "/images/quartz-surface-light.svg"}
+                  alt={member.name}
+                  width={1600}
+                  height={1000}
+                />
                 <div className="media-card__content stack">
                   <h3>{member.name}</h3>
                   <span className="muted">{member.role}</span>
@@ -64,19 +95,22 @@ export default async function AboutPage() {
       <section className="section">
         <div className="container">
           <div className="section-header">
-            <span className="eyebrow">Сертификаты и гарантии</span>
+            <span className="eyebrow">Надежность и отзывы</span>
             <h2 className="section-title">Подтверждение качества материалов и монтажных работ</h2>
           </div>
-          <div className="grid grid-2">
-            {certificates.map((certificate) => (
-              <article key={certificate.id} className="card media-card">
-                <div className="media-placeholder" />
-                <div className="media-card__content stack">
-                  <h3>{certificate.title}</h3>
-                  <p>Документ доступен в медиахранилище админки и может обновляться без правки кода.</p>
-                </div>
-              </article>
-            ))}
+          <div className="card stack">
+            <p>
+              Нам можно доверять: у нас есть реальные отзывы клиентов и открытые площадки, где вы
+              можете посмотреть качество работ и обратную связь.
+            </p>
+            <div className="btn-row">
+              <Link className="button" href={socialLinks.vk} rel="noreferrer" target="_blank">
+                Отзывы в VK
+              </Link>
+              <Link className="button-secondary" href={socialLinks.avito} rel="noreferrer" target="_blank">
+                Отзывы на Avito
+              </Link>
+            </div>
           </div>
         </div>
       </section>

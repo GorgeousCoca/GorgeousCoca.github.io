@@ -1,15 +1,14 @@
 type CalculatorInput = {
   length: number;
   width: number;
-  material: "quartz" | "acrylic";
+  material: "quartz";
   thickness: "12" | "20" | "30";
   sinkCutout: boolean;
   hobCutout: boolean;
 };
 
 const materialRates = {
-  quartz: 22000,
-  acrylic: 16500
+  quartz: 23500
 };
 
 const thicknessRate = {

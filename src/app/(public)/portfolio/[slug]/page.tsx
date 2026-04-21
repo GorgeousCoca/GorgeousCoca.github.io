@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ContactForm } from "@/components/forms/contact-form";
@@ -48,13 +49,27 @@ export default async function ProjectPage({ params }: PageProps) {
           <div className="stack">
             <div className="grid grid-2">
               <div className="card media-card">
-                <div className="media-placeholder" style={{ minHeight: 260 }} />
+                <Image
+                  className="media-image"
+                  src="/images/quartz-surface-light.svg"
+                  alt={`${project.title} до монтажа`}
+                  width={1200}
+                  height={900}
+                  style={{ height: 260 }}
+                />
                 <div className="media-card__content">
                   <strong>До</strong>
                 </div>
               </div>
               <div className="card media-card">
-                <div className="media-placeholder" style={{ minHeight: 260 }} />
+                <Image
+                  className="media-image"
+                  src="/images/quartz-project-composition.svg"
+                  alt={`${project.title} после монтажа`}
+                  width={1400}
+                  height={980}
+                  style={{ height: 260 }}
+                />
                 <div className="media-card__content">
                   <strong>После</strong>
                 </div>

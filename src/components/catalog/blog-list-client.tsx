@@ -28,6 +28,7 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
             description={post.excerpt}
             label={categoryItem?.title}
             meta={new Date(post.publishedAt).toLocaleDateString("ru-RU")}
+            imageUrl="/images/quartz-surface-light.svg"
           />
         );
       })}

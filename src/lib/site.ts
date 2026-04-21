@@ -1,10 +1,20 @@
 import { cache } from "react";
 
+import { primaxStones } from "@/content/primax-stones";
+import { quartzBrandStones } from "@/content/quartz-brand-stones";
 import { listCollection, getBySlug, getCompanySettings, readStore } from "@/lib/cms/store";
 import type { ProductType, StoneType } from "@/types/content";
 
 export const getProducts = cache(async () => listCollection("products"));
-export const getStoneSamples = cache(async () => listCollection("stoneSamples"));
+export const getStoneSamples = cache(async () => {
+  const fromStore = await listCollection("stoneSamples");
+  const knownIds = new Set(fromStore.map((item) => item.id));
+  return [
+    ...fromStore,
+    ...primaxStones.filter((item) => !knownIds.has(item.id)),
+    ...quartzBrandStones.filter((item) => !knownIds.has(item.id))
+  ];
+});
 export const getProjects = cache(async () => listCollection("projects"));
 export const getServices = cache(async () => listCollection("services"));
 export const getBlogPosts = cache(async () => listCollection("blogPosts"));
@@ -16,7 +26,10 @@ export const getContactRequests = cache(async () => listCollection("contactReque
 export const getSettings = cache(async () => getCompanySettings());
 
 export const getProductBySlug = cache(async (slug: string) => getBySlug("products", slug));
-export const getStoneBySlug = cache(async (slug: string) => getBySlug("stoneSamples", slug));
+export const getStoneBySlug = cache(async (slug: string) => {
+  const stones = await getStoneSamples();
+  return stones.find((item) => item.slug === slug) ?? null;
+});
 export const getProjectBySlug = cache(async (slug: string) => getBySlug("projects", slug));
 export const getServiceBySlug = cache(async (slug: string) => getBySlug("services", slug));
 export const getBlogPostBySlug = cache(async (slug: string) => getBySlug("blogPosts", slug));
@@ -26,7 +39,9 @@ export async function getFeaturedData() {
 
   return {
     featuredProducts: store.products.filter((item) => item.isFeatured).slice(0, 4),
-    featuredStones: store.stoneSamples.filter((item) => item.isFeatured).slice(0, 4),
+    featuredStones: [...store.stoneSamples, ...primaxStones, ...quartzBrandStones]
+      .filter((item) => item.isFeatured)
+      .slice(0, 4),
     featuredProjects: store.projects.slice(0, 3),
     testimonials: store.testimonials.slice(0, 4)
   };

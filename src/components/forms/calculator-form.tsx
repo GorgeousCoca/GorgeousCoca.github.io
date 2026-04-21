@@ -9,7 +9,7 @@ import { formatPrice } from "@/lib/utils";
 export function CalculatorForm() {
   const [length, setLength] = useState(2400);
   const [width, setWidth] = useState(600);
-  const [material, setMaterial] = useState<"quartz" | "acrylic">("quartz");
+  const material: "quartz" = "quartz";
   const [thickness, setThickness] = useState<"12" | "20" | "30">("20");
   const [sinkCutout, setSinkCutout] = useState(true);
   const [hobCutout, setHobCutout] = useState(false);
@@ -51,14 +51,7 @@ export function CalculatorForm() {
           </label>
           <label className="stack">
             <span>Материал</span>
-            <select
-              className="select"
-              value={material}
-              onChange={(event) => setMaterial(event.target.value as "quartz" | "acrylic")}
-            >
-              <option value="quartz">Кварцевый агломерат</option>
-              <option value="acrylic">Акриловый камень</option>
-            </select>
+            <input className="field" readOnly value="Кварцевый агломерат" />
           </label>
           <label className="stack">
             <span>Толщина</span>

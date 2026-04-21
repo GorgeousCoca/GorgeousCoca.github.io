@@ -11,6 +11,19 @@ npm run dev
 
 Открыть: `http://localhost:3000`
 
+## Отправка заявок на почту
+
+Для отправки заявок по email заполните SMTP-переменные в `.env`:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USER`
+- `SMTP_PASSWORD`
+- `MAIL_TO`
+
+Если SMTP не настроен, заявка сохраняется в локальном хранилище CMS, но письмо не отправляется.
+
 ## Деплой на GitHub Pages
 
 1. Запушить проект в GitHub (ветка `main`).

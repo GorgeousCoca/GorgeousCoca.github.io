@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -52,7 +53,14 @@ export default async function BlogPostPage({ params }: PageProps) {
               </span>
             ))}
           </div>
-          <div className="media-placeholder" style={{ minHeight: 320 }} />
+          <Image
+            className="media-image"
+            src="/images/quartz-project-composition.svg"
+            alt={post.title}
+            width={1400}
+            height={980}
+            style={{ height: 320 }}
+          />
           {post.content.split("\n\n").map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

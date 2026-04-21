@@ -26,6 +26,7 @@ export function StoneListClient({ stones }: { stones: StoneSample[] }) {
           description={stone.description}
           label={stoneTypeLabels[stone.stoneType]}
           meta={`${stone.manufacturer} · ${stone.thicknesses.join(", ")}`}
+          imageUrl={stone.color === "Белый" ? "/images/quartz-surface-light.svg" : "/images/quartz-hero-editorial.svg"}
         />
       ))}
     </div>

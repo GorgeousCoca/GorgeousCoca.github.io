@@ -54,6 +54,11 @@ export function CatalogFilters({ fields }: CatalogFiltersProps) {
           </label>
         ))}
       </div>
+      <div className="btn-row">
+        <button className="button-ghost" type="button" onClick={() => router.push(pathname)}>
+          Сбросить фильтры
+        </button>
+      </div>
     </div>
   );
 }

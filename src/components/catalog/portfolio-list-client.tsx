@@ -20,6 +20,7 @@ export function PortfolioListClient({ projects }: { projects: Project[] }) {
           description={project.summary}
           label={project.category}
           meta={project.location}
+          imageUrl="/images/quartz-project-composition.svg"
         />
       ))}
     </div>

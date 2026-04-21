@@ -22,7 +22,6 @@ export async function SiteShell({ children }: { children: React.ReactNode }) {
             </div>
             <div className="stack">
               <strong>Разделы</strong>
-              <Link href="/catalog">Каталог изделий</Link>
               <Link href="/catalog-kamnya">Каталог камня</Link>
               <Link href="/portfolio">Портфолио</Link>
               <Link href="/blog">Блог</Link>
@@ -32,6 +31,12 @@ export async function SiteShell({ children }: { children: React.ReactNode }) {
               <span>{settings.phone}</span>
               <span>{settings.email}</span>
               <span>{settings.address}</span>
+              <a href="https://vk.com/club230045850?ysclid=mo5ny4mikt343003951" rel="noreferrer" target="_blank">
+                Мы в VK
+              </a>
+              <a href="https://www.avito.ru/" rel="noreferrer" target="_blank">
+                Мы на Avito
+              </a>
             </div>
             <div className="stack">
               <strong>Документы</strong>
@@ -39,6 +44,12 @@ export async function SiteShell({ children }: { children: React.ReactNode }) {
               <Link href="/services">Услуги и цены</Link>
               <Link href="/calculator">Калькулятор</Link>
             </div>
+          </div>
+          <div className="site-footer-minimal">
+            <span>59.9343° N, 30.3351° E</span>
+            <span>
+              © {new Date().getFullYear()} {settings.companyName}
+            </span>
           </div>
         </div>
       </footer>

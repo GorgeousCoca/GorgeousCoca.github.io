@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ContactForm } from "@/components/forms/contact-form";
@@ -5,6 +6,7 @@ import { PageHero } from "@/components/ui/content";
 import { stoneTypeLabels } from "@/lib/filters/catalog";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getStoneBySlug, getStoneSamples } from "@/lib/site";
+import { formatPrice } from "@/lib/utils";
 
 type PageProps = {
   params: Promise<{ group: string; slug: string }>;
@@ -51,7 +53,14 @@ export default async function StoneDetailPage({ params }: PageProps) {
       <section className="section">
         <div className="container grid grid-2">
           <div className="card media-card">
-            <div className="media-placeholder" style={{ minHeight: 380 }} />
+            <Image
+              className="media-image"
+              src={stone.color === "Белый" ? "/images/quartz-surface-light.svg" : "/images/quartz-hero-editorial.svg"}
+              alt={stone.title}
+              width={1600}
+              height={1000}
+              style={{ height: 380 }}
+            />
             <div className="media-card__content pill-list">
               <span className="pill">{stone.color}</span>
               <span className="pill">{stone.texture}</span>
@@ -63,6 +72,7 @@ export default async function StoneDetailPage({ params }: PageProps) {
               <h2>Характеристики</h2>
               <p>Производитель: {stone.manufacturer}</p>
               <p>Доступные толщины: {stone.thicknesses.join(", ")}</p>
+              <p>Цена: {stone.priceFrom ? `от ${formatPrice(stone.priceFrom)} ₽/м²` : "по запросу"}</p>
             </div>
             <ContactForm source={`stone:${stone.slug}`} compact />
           </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Suspense } from "react";
 
 import { ContactMessageDraft } from "@/components/forms/contact-message-draft";
@@ -21,19 +22,33 @@ export default async function ContactsPage() {
         eyebrow="Контакты"
         title="Свяжитесь с нами удобным способом"
         description="Оставьте заявку через форму, позвоните напрямую или приезжайте по адресу производства и офиса."
+        actions={
+          <>
+            <a className="button" href={`tel:${settings.phone.replace(/\D/g, "")}`}>
+              Позвонить
+            </a>
+            <Link className="button-secondary" href="/calculator">
+              Быстрый расчет
+            </Link>
+          </>
+        }
       />
       <section className="section">
         <div className="container grid grid-2">
           <div className="card stack">
             <h2>Контактная информация</h2>
-            <p>{settings.phone}</p>
-            <p>{settings.email}</p>
-            <p>{settings.address}</p>
-            <p>Метро: {settings.metro}</p>
-            <h3>Реквизиты</h3>
-            <p>{settings.legalName}</p>
-            <p>ИНН {settings.inn}</p>
-            <p>ОГРН {settings.ogrn}</p>
+            <div className="info-list">
+              <div className="info-list__item">{settings.phone}</div>
+              <div className="info-list__item">{settings.email}</div>
+              <div className="info-list__item">{settings.address}</div>
+              <div className="info-list__item">{settings.metro}</div>
+            </div>
+            <div className="contact-strip">
+              <div className="contact-strip__content stack" style={{ gap: 6 }}>
+                <strong>Покажите размеры и фото объекта</strong>
+                <span>Подскажем по материалу, срокам и ориентиру по стоимости.</span>
+              </div>
+            </div>
             <div className="map-wrap">
               <iframe src={settings.mapEmbedUrl} loading="lazy" title="Карта офиса" />
             </div>

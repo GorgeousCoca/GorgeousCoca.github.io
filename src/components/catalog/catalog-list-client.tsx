@@ -10,6 +10,13 @@ type CatalogListClientProps = {
   products: Product[];
 };
 
+const productImages: Record<Product["type"], string> = {
+  countertops: "/images/quartz-project-composition.svg",
+  "window-sills": "/images/quartz-surface-light.svg",
+  sinks: "/images/quartz-hero-editorial.svg",
+  profiles: "/images/quartz-surface-light.svg"
+};
+
 function asNumber(value: string | null, fallback: number) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
@@ -41,6 +48,7 @@ export function CatalogListClient({ products }: CatalogListClientProps) {
               label={productTypeLabels[product.type]}
               price={product.basePrice}
               meta={`${product.material} · ${product.color}`}
+              imageUrl={productImages[product.type]}
             />
           ))}
         </div>

@@ -25,7 +25,7 @@ export default async function ServicesPage() {
 
       <section className="section">
         <div className="container grid grid-3">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <MediaCard
               key={service.id}
               href={`/services/${service.slug}`}
@@ -33,6 +33,7 @@ export default async function ServicesPage() {
               description={service.shortDescription}
               price={service.priceFrom}
               meta={service.duration}
+              imageUrl={index % 2 === 0 ? "/images/quartz-project-composition.svg" : "/images/quartz-surface-light.svg"}
             />
           ))}
         </div>

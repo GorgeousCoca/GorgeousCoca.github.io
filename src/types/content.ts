@@ -38,6 +38,7 @@ export type StoneSample = SeoFields & {
   description: string;
   image: string;
   isFeatured: boolean;
+  priceFrom?: number | null;
 };
 
 export type Project = SeoFields & {

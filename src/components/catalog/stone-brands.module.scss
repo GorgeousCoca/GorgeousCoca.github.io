@@ -1,0 +1,330 @@
+.catalogPageTheme {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background:
+    linear-gradient(180deg, rgba(4, 19, 17, 0.95) 0%, rgba(5, 24, 21, 0.94) 52%, rgba(7, 29, 24, 0.92) 100%),
+    url("/images/gold-green-main-2.jpeg") center/cover no-repeat;
+}
+
+.catalogPageTheme::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(214, 170, 95, 0.16), transparent 42%),
+    url("/images/gold-green-main.jpeg") center/cover no-repeat;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+.catalogPageTheme > :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
+.catalogSurface {
+  position: relative;
+  padding: clamp(14px, 2.8vw, 28px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(160deg, rgba(5, 18, 16, 0.86), rgba(8, 24, 20, 0.9)),
+    url("/images/gold-green-main-2.jpeg") center/cover no-repeat;
+  color: #f6f8f7;
+  overflow: hidden;
+}
+
+.catalogSurface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(214, 170, 95, 0.14), transparent 45%),
+    url("/images/gold-green-main.jpeg") center/cover no-repeat;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.catalogSurface > * {
+  position: relative;
+  z-index: 1;
+}
+
+.catalogSurface :global(.card) {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+  color: #f7f8f8;
+  backdrop-filter: blur(14px);
+}
+
+.catalogSurface :global(.field),
+.catalogSurface :global(.select) {
+  background: rgba(4, 12, 12, 0.45);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f6f8f7;
+}
+
+.catalogSurface :global(.field::placeholder) {
+  color: rgba(246, 248, 247, 0.6);
+}
+
+.catalogSurface :global(.button-ghost) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f6f8f7;
+}
+
+.catalogSurface :global(.eyebrow) {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2c68e;
+}
+
+.brandIntro {
+  margin-bottom: 20px;
+  padding: 26px;
+}
+
+.brandIntro h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+}
+
+.brandIntro p {
+  margin: 12px 0 0;
+  max-width: 72ch;
+}
+
+.brandFilterRow {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.brandFilterCard {
+  display: grid;
+  gap: 14px;
+  max-width: none;
+}
+
+.unifiedHead {
+  display: grid;
+  gap: 10px;
+}
+
+.unifiedHead h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.unifiedHead p {
+  margin: 0;
+  max-width: 74ch;
+  color: rgba(246, 248, 247, 0.76);
+}
+
+.filterGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.filterHead {
+  display: grid;
+  gap: 6px;
+}
+
+.filterHead strong {
+  font-size: 1.05rem;
+}
+
+.filterHead span {
+  color: rgba(17, 23, 34, 0.72);
+}
+
+.hintsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hintChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(8, 25, 22, 0.55);
+  color: #f6f8f7;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.hintChip:hover {
+  border-color: rgba(200, 161, 94, 0.46);
+  transform: translateY(-1px);
+}
+
+.emptyHint {
+  color: rgba(246, 248, 247, 0.62);
+  font-size: 0.95rem;
+}
+
+.brandLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(26, 33, 48, 0.1);
+  background: rgba(255, 255, 255, 0.75);
+  color: #18202d;
+}
+
+.brandLinkActive {
+  border-color: rgba(200, 161, 94, 0.45);
+  background: rgba(200, 161, 94, 0.18);
+}
+
+.brandCount {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+}
+
+.popularBrands {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.popularTitle {
+  font-weight: 600;
+}
+
+.brandRail {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.stonesHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0 12px;
+  color: rgba(246, 248, 247, 0.8);
+}
+
+.swatchesGrid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.swatchCard {
+  position: relative;
+  min-height: 170px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 14px 24px rgba(8, 13, 20, 0.12);
+  overflow: hidden;
+}
+
+.swatchInner {
+  position: absolute;
+  inset: 0;
+  padding: 18px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  background: linear-gradient(180deg, rgba(4, 12, 11, 0.22) 0%, rgba(4, 12, 11, 0.52) 100%);
+}
+
+.swatchTitle {
+  justify-self: center;
+  min-width: min(90%, 280px);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(5, 18, 16, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #f6f8f7;
+  text-align: center;
+  font-weight: 500;
+}
+
+.swatchMeta {
+  justify-self: start;
+  align-self: end;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(5, 18, 16, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #f6f8f7;
+}
+
+.swatchAction {
+  position: absolute;
+  inset: 0;
+}
+
+.brandPageHead {
+  margin-bottom: 18px;
+}
+
+.brandPageHead h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+}
+
+.brandPageHead p {
+  margin: 10px 0 0;
+}
+
+.benefitsGrid {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.benefitCard {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(7, 19, 17, 0.56);
+  color: rgba(246, 248, 247, 0.84);
+}
+
+.benefitCard strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #f6f8f7;
+}
+
+@media (min-width: 980px) {
+  .filterGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brandFilterRow {
+    grid-template-columns: minmax(280px, 1fr);
+    align-items: start;
+  }
+}

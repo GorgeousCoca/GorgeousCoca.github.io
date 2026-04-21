@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { formatPrice } from "@/lib/utils";
 
@@ -34,11 +35,24 @@ export function PageHero({
   return (
     <section className="section page-hero">
       <div className="container">
-        <div className="card stack">
-          <span className="eyebrow">{eyebrow}</span>
-          <h1 className="section-title">{title}</h1>
-          <p>{description}</p>
-          {actions ? <div className="btn-row">{actions}</div> : null}
+        <div className="card page-hero__card">
+          <div className="page-hero__grid">
+            <div className="stack">
+              <span className="eyebrow">{eyebrow}</span>
+              <h1 className="section-title">{title}</h1>
+              <p>{description}</p>
+              {actions ? <div className="btn-row">{actions}</div> : null}
+            </div>
+            <div className="page-hero__visual">
+              <Image
+                src="/images/quartz-hero-editorial.svg"
+                alt="Премиальная композиция из кварцевого агломерата"
+                width={1600}
+                height={1000}
+              />
+              <div className="page-hero__badge">Quartz. Detail. Installation.</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -51,7 +65,8 @@ export function MediaCard({
   description,
   label,
   price,
-  meta
+  meta,
+  imageUrl
 }: {
   href: string;
   title: string;
@@ -59,10 +74,15 @@ export function MediaCard({
   label?: string;
   price?: number;
   meta?: string;
+  imageUrl?: string;
 }) {
   return (
     <article className="card media-card">
-      <div className="media-placeholder" aria-hidden="true" />
+      {imageUrl ? (
+        <Image className="media-image" src={imageUrl} alt={title} width={800} height={500} />
+      ) : (
+        <div className="media-placeholder" aria-hidden="true" />
+      )}
       <div className="media-card__content stack">
         {label ? <span className="eyebrow">{label}</span> : null}
         <h3>{title}</h3>

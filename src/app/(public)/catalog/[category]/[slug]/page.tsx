@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ContactForm } from "@/components/forms/contact-form";
@@ -64,7 +65,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
         <div className="container grid grid-2">
           <div className="stack">
             <div className="card media-card">
-              <div className="media-placeholder" style={{ minHeight: 360 }} />
+              <Image
+                className="media-image"
+                src={
+                  product.type === "countertops" || product.type === "sinks"
+                    ? "/images/quartz-project-composition.svg"
+                    : "/images/quartz-surface-light.svg"
+                }
+                alt={product.title}
+                width={1400}
+                height={980}
+                style={{ height: 360 }}
+              />
               <div className="media-card__content">
                 <div className="pill-list">
                   <span className="pill">{product.material}</span>

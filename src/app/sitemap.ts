@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { getStoneBrands } from "@/lib/stone/brands";
 import { getBlogPosts, getProducts, getProjects, getServices, getStoneSamples } from "@/lib/site";
 import { absoluteUrl } from "@/lib/utils";
 
@@ -13,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getServices(),
     getBlogPosts()
   ]);
+  const brands = getStoneBrands(stones);
 
   const staticRoutes = [
     "/",
@@ -42,6 +44,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: absoluteUrl(`/catalog-kamnya/${stone.stoneType}/${stone.slug}`),
       changeFrequency: "weekly" as const,
       priority: 0.75
+    })),
+    ...brands.map((brand) => ({
+      url: absoluteUrl(`/catalog-kamnya/brands/${brand.slug}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.8
     })),
     ...projects.map((project) => ({
       url: absoluteUrl(`/portfolio/${project.slug}`),

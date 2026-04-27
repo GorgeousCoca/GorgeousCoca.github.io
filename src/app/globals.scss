@@ -47,7 +47,7 @@ body::after {
 body::before {
   inset: 0;
   background: url("/images/site-background-marble.png") center top / 100% auto no-repeat;
-  opacity: 0.2;
+  opacity: 0.14;
   transform: none;
   filter: none;
   z-index: -2;
@@ -61,14 +61,16 @@ body::after {
 }
 
 body.catalog-emerald-theme::before {
+  position: absolute;
   inset: 0;
-  background: url("/images/gold-green-main-2.jpeg") center top / cover no-repeat;
+  background: url("/images/gold-green-main.jpeg") center top / cover no-repeat;
   opacity: 0.24;
   transform: none;
   filter: saturate(1.02) contrast(1.02);
 }
 
 body.catalog-emerald-theme::after {
+  position: absolute;
   background:
     linear-gradient(90deg, rgba(4, 19, 17, 0.94) 0%, rgba(5, 24, 21, 0.88) 45%, rgba(6, 30, 24, 0.82) 100%),
     linear-gradient(180deg, rgba(5, 22, 19, 0.22) 0%, rgba(5, 22, 19, 0.06) 100%);
@@ -169,8 +171,8 @@ p {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, rgba(248, 245, 239, 0.92) 0%, rgba(239, 233, 224, 0.88) 100%);
-  backdrop-filter: blur(22px);
-  box-shadow: 0 20px 48px rgba(3, 7, 18, 0.24);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 32px rgba(3, 7, 18, 0.18);
   transition:
     transform 0.45s ease,
     box-shadow 0.45s ease,
@@ -180,8 +182,8 @@ p {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 28px 56px rgba(3, 7, 18, 0.3);
-  border-color: rgba(211, 170, 103, 0.32);
+  box-shadow: 0 18px 44px rgba(3, 7, 18, 0.24);
+  border-color: rgba(211, 170, 103, 0.28);
 }
 
 .media-card {
@@ -295,15 +297,7 @@ p {
 }
 
 body.catalog-emerald-theme .site-main {
-  background:
-    linear-gradient(180deg, rgba(4, 19, 17, 0.94) 0%, rgba(5, 24, 21, 0.92) 58%, rgba(7, 29, 24, 0.9) 100%),
-    url("/images/gold-green-main-2.jpeg") center/cover no-repeat;
-}
-
-body.catalog-emerald-theme .site-main {
-  background:
-    linear-gradient(180deg, rgba(6, 24, 21, 0.9) 0%, rgba(9, 35, 29, 0.84) 52%, rgba(11, 41, 33, 0.8) 100%),
-    url("/images/gold-green-main-2.jpeg") center top / cover no-repeat;
+  background: transparent;
 }
 
 .site-header {
@@ -316,9 +310,7 @@ body.catalog-emerald-theme .site-main {
 }
 
 .site-header--emerald {
-  background:
-    linear-gradient(90deg, rgba(4, 20, 18, 0.9) 0%, rgba(5, 28, 24, 0.86) 56%, rgba(8, 38, 32, 0.82) 100%),
-    url("/images/gold-green-main-2.jpeg") center/cover no-repeat;
+  background: linear-gradient(90deg, rgba(4, 20, 18, 0.9) 0%, rgba(5, 28, 24, 0.86) 56%, rgba(8, 38, 32, 0.82) 100%);
   border-bottom-color: rgba(214, 170, 95, 0.22);
 }
 
@@ -471,6 +463,16 @@ body.catalog-emerald-theme .site-main {
 
 .page-hero__card {
   overflow: hidden;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.page-hero__card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: transparent;
 }
 
 .page-hero__grid {
@@ -533,6 +535,18 @@ body.catalog-emerald-theme .breadcrumbs a {
 
 body.catalog-emerald-theme .breadcrumbs span:last-child {
   color: rgba(226, 198, 142, 0.82);
+}
+
+body.catalog-emerald-theme .page-hero .section-title {
+  color: #f6f8f7;
+}
+
+.catalog-category-hero-title {
+  color: #f6f8f7;
+}
+
+.catalog-category-hero-title + p {
+  color: #f6f8f7;
 }
 
 .filter-bar {
@@ -953,9 +967,7 @@ footer a {
 }
 
 body.catalog-emerald-theme footer {
-  background:
-    linear-gradient(180deg, rgba(4, 19, 17, 0.94) 0%, rgba(5, 24, 21, 0.92) 100%),
-    url("/images/gold-green-main.jpeg") center/cover no-repeat;
+  background: transparent;
   color: rgba(246, 248, 247, 0.88);
 }
 
@@ -1041,5 +1053,59 @@ body.catalog-emerald-theme .site-footer-minimal {
 
   .page-hero__visual {
     min-height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Убираем тяжелые фоновые слои и размытия на мобильных для ускорения */
+  body::before,
+  body::after,
+  body.catalog-emerald-theme::before,
+  body.catalog-emerald-theme::after {
+    background: none;
+  }
+
+  .card {
+    backdrop-filter: none;
+    box-shadow: 0 8px 18px rgba(3, 7, 18, 0.16);
+  }
+}
+
+/* Bento Grid Portfolio */
+.portfolio-bento {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-auto-rows: minmax(360px, auto);
+  gap: 20px;
+}
+
+.portfolio-bento__wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-bento .card--featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.portfolio-bento__card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: none !important; /* Disable double fadeUp */
+}
+
+.portfolio-bento__card .media-image,
+.portfolio-bento__card .media-placeholder {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .portfolio-bento .card--featured {
+    grid-column: span 1;
+    grid-row: span 1;
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 import styles from "./avantgarde-home.module.scss";
 
@@ -12,12 +12,6 @@ type HeroProps = {
 };
 
 export function Hero({ title, subtitle, primaryCta }: HeroProps) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 58, damping: 18, mass: 0.72 });
-  const smoothY = useSpring(mouseY, { stiffness: 58, damping: 18, mass: 0.72 });
-  const titleX = useTransform(smoothX, [-0.5, 0.5], [-8, 8]);
-  const titleY = useTransform(smoothY, [-0.5, 0.5], [-4, 4]);
   const heroBenefits = [
     {
       title: "Собственное производство",
@@ -35,27 +29,14 @@ export function Hero({ title, subtitle, primaryCta }: HeroProps) {
 
   return (
     <section className={`${styles.section} ${styles.heroSection}`}>
-      <div
-        className={styles.heroWrap}
-        onMouseMove={(event) => {
-          const bounds = event.currentTarget.getBoundingClientRect();
-          const relativeX = (event.clientX - bounds.left) / bounds.width - 0.5;
-          const relativeY = (event.clientY - bounds.top) / bounds.height - 0.5;
-          mouseX.set(relativeX);
-          mouseY.set(relativeY);
-        }}
-      >
-        <motion.div 
-          className={styles.heroBackground}
-          style={{ x: useTransform(smoothX, [-0.5, 0.5], [-14, 14]), y: useTransform(smoothY, [-0.5, 0.5], [-8, 8]) }}
-        />
+      <div className={styles.heroWrap}>
         <div className={styles.heroInner}>
           <div className={styles.heroLayout}>
             <div className={styles.heroMain}>
-              <motion.div style={{ x: titleX, y: titleY }} className={styles.heroTitle}>
+              <div className={styles.heroTitle}>
                 Создаем поверхности, которые <span className={styles.heroStrike}>«просто продаются»</span>{" "}
                 вдохновляют.
-              </motion.div>
+              </div>
               <p className={styles.heroSub}>
                 {title}. {subtitle}
               </p>

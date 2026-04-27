@@ -25,20 +25,7 @@
   margin-right: calc(50% - 50vw);
   min-height: min(74vh, 760px);
   border-radius: 0;
-  background: #090f18;
-}
-
-.heroBackground {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(7, 10, 16, 0.52) 0%, rgba(7, 10, 16, 0.78) 100%),
-    url("/images/site-background-marble.png") center center / cover no-repeat;
-  opacity: 1;
-  filter: saturate(0.78) contrast(1.02);
-  will-change: transform;
-  z-index: 0;
-  pointer-events: none;
+  background: transparent;
 }
 
 .heroInner {

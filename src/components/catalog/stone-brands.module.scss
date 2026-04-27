@@ -3,19 +3,15 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background:
-    linear-gradient(180deg, rgba(4, 19, 17, 0.95) 0%, rgba(5, 24, 21, 0.94) 52%, rgba(7, 29, 24, 0.92) 100%),
-    url("/images/gold-green-main-2.jpeg") center/cover no-repeat;
+  background: transparent;
 }
 
 .catalogPageTheme::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(214, 170, 95, 0.16), transparent 42%),
-    url("/images/gold-green-main.jpeg") center/cover no-repeat;
-  opacity: 0.24;
+  background: linear-gradient(180deg, rgba(4, 19, 17, 0.44) 0%, rgba(5, 24, 21, 0.38) 100%);
+  opacity: 0.9;
   pointer-events: none;
 }
 
@@ -29,9 +25,7 @@
   padding: clamp(14px, 2.8vw, 28px);
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background:
-    linear-gradient(160deg, rgba(5, 18, 16, 0.86), rgba(8, 24, 20, 0.9)),
-    url("/images/gold-green-main-2.jpeg") center/cover no-repeat;
+  background: linear-gradient(160deg, rgba(5, 18, 16, 0.86), rgba(8, 24, 20, 0.9));
   color: #f6f8f7;
   overflow: hidden;
 }
@@ -40,10 +34,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 18% 16%, rgba(214, 170, 95, 0.14), transparent 45%),
-    url("/images/gold-green-main.jpeg") center/cover no-repeat;
-  opacity: 0.28;
+  background: radial-gradient(circle at 18% 16%, rgba(214, 170, 95, 0.14), transparent 45%);
+  opacity: 1;
   pointer-events: none;
 }
 
@@ -56,7 +48,8 @@
   border-color: rgba(255, 255, 255, 0.16);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
   color: #f7f8f8;
-  backdrop-filter: blur(14px);
+  backdrop-filter: none;
+  animation: none;
 }
 
 .catalogSurface :global(.field),
@@ -150,6 +143,17 @@
   gap: 8px;
 }
 
+.hintsArea {
+  min-height: 44px;
+}
+
+.hintsPlaceholder {
+  display: block;
+  height: 38px;
+  width: 100%;
+  opacity: 0;
+}
+
 .hintChip {
   display: inline-flex;
   align-items: center;
@@ -172,6 +176,29 @@
 .emptyHint {
   color: rgba(246, 248, 247, 0.62);
   font-size: 0.95rem;
+}
+
+.filterActionRow {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resetButton {
+  transition: opacity 0.15s ease;
+}
+
+.resetButtonHidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.pendingText {
+  font-size: 0.88rem;
+  color: rgba(246, 248, 247, 0.7);
 }
 
 .brandLinks {
@@ -245,6 +272,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     0 14px 24px rgba(8, 13, 20, 0.12);
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 170px;
 }
 
 .swatchInner {
@@ -316,6 +345,49 @@
   display: block;
   margin-bottom: 6px;
   color: #f6f8f7;
+}
+
+.catalogFallback {
+  min-height: 1080px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(160deg, rgba(5, 18, 16, 0.84), rgba(8, 24, 20, 0.88));
+  padding: clamp(14px, 2.8vw, 28px);
+  display: grid;
+  gap: 14px;
+}
+
+.fallbackLine {
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
+}
+
+.fallbackLineWide {
+  width: min(540px, 100%);
+  height: 40px;
+}
+
+.fallbackLineMedium {
+  width: min(380px, 100%);
+}
+
+.fallbackLineShort {
+  width: min(240px, 100%);
+}
+
+.fallbackGrid {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.fallbackCard {
+  min-height: 170px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
 }
 
 @media (min-width: 980px) {

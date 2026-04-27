@@ -183,66 +183,7 @@
       "isFeatured": true
     }
   ],
-  "projects": [
-    {
-      "id": "project_1",
-      "slug": "kuhnya-na-petrogradke",
-      "title": "Кухня на Петроградке",
-      "category": "Кухни",
-      "location": "Санкт-Петербург",
-      "summary": "Кварцевая столешница с островом и интегрированной мойкой.",
-      "description": "Полный цикл: замер, подбор декора, производство, доставка и монтаж. Главной задачей было получить светлую рабочую поверхность без визуального шума.",
-      "beforeImage": "/images/projects/project-before-1.svg",
-      "afterImage": "/images/projects/project-after-1.svg",
-      "gallery": ["/images/projects/project-after-1.svg", "/images/projects/project-detail-1.svg"],
-      "testimonial": "Очень понравилась точность монтажа и то, как команда уложилась в обещанные сроки.",
-      "productRefs": ["stoleshnitsa-dlya-kuhni-ice-sand", "moyka-soft-shell"],
-      "serviceRefs": ["montazh", "izgotovlenie"]
-    },
-    {
-      "id": "project_2",
-      "slug": "vannaya-v-kudrovo",
-      "title": "Ванная в Кудрово",
-      "category": "Ванные",
-      "location": "Кудрово",
-      "summary": "Кварцевая столешница под раковину с мягкой кромкой.",
-      "description": "Для санузла выбрали светлый кварцевый декор и сделали компактную столешницу с высокой влагостойкостью.",
-      "beforeImage": "/images/projects/project-before-2.svg",
-      "afterImage": "/images/projects/project-after-2.svg",
-      "gallery": ["/images/projects/project-after-2.svg"],
-      "testimonial": "Изделие выглядит монолитно и идеально подошло по размерам.",
-      "productRefs": ["podokonnik-cloud-white"],
-      "serviceRefs": ["dizayn-proekt", "montazh"]
-    },
-    {
-      "id": "project_3",
-      "slug": "reception-v-biznes-centre",
-      "title": "Reception в бизнес-центре",
-      "category": "Офисы",
-      "location": "Санкт-Петербург",
-      "summary": "Стойка reception и подоконники в графитовом кварце.",
-      "description": "Проект для коммерческого интерьера с повышенной износостойкостью и строгой геометрией.",
-      "beforeImage": "/images/projects/project-before-3.svg",
-      "afterImage": "/images/projects/project-after-3.svg",
-      "gallery": ["/images/projects/project-after-3.svg"],
-      "testimonial": "Получили премиальный вид без долгих простоев офиса.",
-      "productRefs": ["stoleshnitsa-ostrov-grafit"],
-      "serviceRefs": ["zamer", "dostavka", "montazh"]
-    },
-    {
-      "id": "project_4",
-      "slug": "podokonniki-v-zhk-premium",
-      "title": "Подоконники в ЖК Premium",
-      "category": "Кухни",
-      "location": "Санкт-Петербург",
-      "summary": "Серия широких подоконников с функцией рабочей зоны.",
-      "description": "Реализовали единый стиль для нескольких помещений и сохранили легкость интерьера за счет теплой бежевой палитры.",
-      "gallery": ["/images/projects/project-detail-2.svg"],
-      "testimonial": "Подоконники превратились в полноценные рабочие поверхности.",
-      "productRefs": ["podokonnik-warm-beige"],
-      "serviceRefs": ["izgotovlenie", "montazh"]
-    }
-  ],
+  "projects": [],
   "services": [
     {
       "id": "service_1",

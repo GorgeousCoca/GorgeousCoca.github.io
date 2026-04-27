@@ -1,29 +1,90 @@
 import { cookies } from "next/headers";
+import { createHash, timingSafeEqual } from "crypto";
+import { SignJWT, jwtVerify } from "jose";
 
 const ADMIN_COOKIE = "admin_session";
-const ADMIN_COOKIE_VALUE = "authorized";
+const SESSION_ISSUER = "kvartsevyy-aglomerat";
+const SESSION_AUDIENCE = "admin";
+const SESSION_TTL_SECONDS = 60 * 60 * 8;
+
+function getSessionSecret() {
+  const baseSecret =
+    process.env.ADMIN_SESSION_SECRET ??
+    `${process.env.ADMIN_EMAIL ?? ""}:${process.env.ADMIN_PASSWORD ?? ""}`;
+
+  if (!baseSecret.trim()) {
+    return null;
+  }
+
+  return createHash("sha256").update(baseSecret).digest();
+}
+
+function safeEqual(expected: string | undefined, received: string) {
+  if (!expected) {
+    return false;
+  }
+
+  const expectedBuffer = Buffer.from(expected);
+  const receivedBuffer = Buffer.from(received);
+  if (expectedBuffer.length !== receivedBuffer.length) {
+    return false;
+  }
+
+  return timingSafeEqual(expectedBuffer, receivedBuffer);
+}
 
 export async function isAdminAuthorized() {
   const cookieStore = await cookies();
-  return cookieStore.get(ADMIN_COOKIE)?.value === ADMIN_COOKIE_VALUE;
+  const token = cookieStore.get(ADMIN_COOKIE)?.value;
+  if (!token) {
+    return false;
+  }
+
+  const secret = getSessionSecret();
+  if (!secret) {
+    return false;
+  }
+
+  try {
+    await jwtVerify(token, secret, {
+      issuer: SESSION_ISSUER,
+      audience: SESSION_AUDIENCE
+    });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export async function createAdminSession() {
+  const secret = getSessionSecret();
+  if (!secret) {
+    throw new Error("Admin session secret is not configured");
+  }
+
+  const token = await new SignJWT({ role: "admin" })
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setIssuer(SESSION_ISSUER)
+    .setAudience(SESSION_AUDIENCE)
+    .setExpirationTime(`${SESSION_TTL_SECONDS}s`)
+    .sign(secret);
+
   const cookieStore = await cookies();
-  cookieStore.set(ADMIN_COOKIE, ADMIN_COOKIE_VALUE, {
+  cookieStore.set(ADMIN_COOKIE, token, {
     httpOnly: true,
     path: "/",
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 8
+    maxAge: SESSION_TTL_SECONDS
   });
 }
 
 export async function clearAdminSession() {
   const cookieStore = await cookies();
-  cookieStore.delete(ADMIN_COOKIE);
+  cookieStore.delete({ name: ADMIN_COOKIE, path: "/" });
 }
 
 export async function validateAdminCredentials(email: string, password: string) {
-  return email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD;
+  return safeEqual(process.env.ADMIN_EMAIL, email) && safeEqual(process.env.ADMIN_PASSWORD, password);
 }

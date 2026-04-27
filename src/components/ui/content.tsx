@@ -25,12 +25,18 @@ export function PageHero({
   eyebrow,
   title,
   description,
-  actions
+  actions,
+  titleClassName,
+  visualImageSrc,
+  visualImageAlt
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
   actions?: React.ReactNode;
+  titleClassName?: string;
+  visualImageSrc?: string;
+  visualImageAlt?: string;
 }) {
   return (
     <section className="section page-hero">
@@ -38,15 +44,15 @@ export function PageHero({
         <div className="card page-hero__card">
           <div className="page-hero__grid">
             <div className="stack">
-              <span className="eyebrow">{eyebrow}</span>
-              <h1 className="section-title">{title}</h1>
+              {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
+              <h1 className={`section-title ${titleClassName ?? ""}`.trim()}>{title}</h1>
               <p>{description}</p>
               {actions ? <div className="btn-row">{actions}</div> : null}
             </div>
             <div className="page-hero__visual">
               <Image
-                src="/images/quartz-hero-editorial.svg"
-                alt="Премиальная композиция из кварцевого агломерата"
+                src={visualImageSrc ?? "/images/quartz-hero-editorial.svg"}
+                alt={visualImageAlt ?? "Премиальная композиция из кварцевого агломерата"}
                 width={1600}
                 height={1000}
               />
@@ -66,7 +72,8 @@ export function MediaCard({
   label,
   price,
   meta,
-  imageUrl
+  imageUrl,
+  className
 }: {
   href: string;
   title: string;
@@ -75,9 +82,10 @@ export function MediaCard({
   price?: number;
   meta?: string;
   imageUrl?: string;
+  className?: string;
 }) {
   return (
-    <article className="card media-card">
+    <article className={`card media-card ${className ?? ""}`.trim()}>
       {imageUrl ? (
         <Image className="media-image" src={imageUrl} alt={title} width={800} height={500} />
       ) : (

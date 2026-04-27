@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { formatPrice } from "@/lib/utils";
@@ -40,8 +40,13 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
   const searchParams = useSearchParams();
   const activeBrand = searchParams.get("brand");
   const [brandQuery, setBrandQuery] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   function applyBrandFilter(nextBrand: string | null) {
+    if ((nextBrand ?? null) === (activeBrand ?? null)) {
+      return;
+    }
+
     const next = new URLSearchParams(searchParams.toString());
     if (nextBrand) {
       next.set("brand", nextBrand);
@@ -49,7 +54,11 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
       next.delete("brand");
     }
     const query = next.toString();
-    router.push(query ? `${pathname}?${query}` : pathname);
+    const href = query ? `${pathname}?${query}` : pathname;
+
+    startTransition(() => {
+      router.replace(href, { scroll: false });
+    });
   }
 
   const visibleBrands = useMemo(() => {
@@ -63,7 +72,7 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
 
   const filtered = useMemo(() => {
     if (!activeBrand) {
-      return stones.filter((stone) => stone.isFeatured).slice(0, 24);
+      return [];
     }
     const activeBrandName = brands.find((item) => item.slug === activeBrand)?.name;
     return activeBrandName ? stones.filter((stone) => stone.manufacturer === activeBrandName) : stones;
@@ -111,34 +120,45 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
             </label>
           </div>
 
-          {brandQuery ? (
-            <div className={styles.hintsWrap}>
-              {hintedBrands.length ? (
-                hintedBrands.map((brand) => (
-                  <button
-                    key={brand.slug}
-                    className={styles.hintChip}
-                    type="button"
-                    onClick={() => {
-                      setBrandQuery(brand.name);
-                      applyBrandFilter(brand.slug);
-                    }}
-                  >
-                    {brand.name}
-                    <span className={styles.brandCount}>{brand.count}</span>
-                  </button>
-                ))
-              ) : (
-                <span className={styles.emptyHint}>Ничего не найдено. Уточните название бренда.</span>
-              )}
-            </div>
-          ) : null}
+          <div className={styles.hintsArea}>
+            {brandQuery ? (
+              <div className={styles.hintsWrap}>
+                {hintedBrands.length ? (
+                  hintedBrands.map((brand) => (
+                    <button
+                      key={brand.slug}
+                      className={styles.hintChip}
+                      type="button"
+                      onClick={() => {
+                        setBrandQuery(brand.name);
+                        applyBrandFilter(brand.slug);
+                      }}
+                    >
+                      {brand.name}
+                      <span className={styles.brandCount}>{brand.count}</span>
+                    </button>
+                  ))
+                ) : (
+                  <span className={styles.emptyHint}>Ничего не найдено. Уточните название бренда.</span>
+                )}
+              </div>
+            ) : (
+              <span className={styles.hintsPlaceholder} aria-hidden="true" />
+            )}
+          </div>
 
-          {activeBrand ? (
-            <button className="button-ghost" type="button" onClick={() => applyBrandFilter(null)}>
+          <div className={styles.filterActionRow}>
+            <button
+              className={`button-ghost ${styles.resetButton} ${activeBrand ? "" : styles.resetButtonHidden}`}
+              type="button"
+              onClick={() => applyBrandFilter(null)}
+              disabled={!activeBrand}
+              aria-hidden={!activeBrand}
+            >
               Сбросить бренд
             </button>
-          ) : null}
+            {isPending ? <span className={styles.pendingText}>Обновляем список...</span> : null}
+          </div>
         </div>
       </div>
 
@@ -161,24 +181,28 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
         </article>
       </div>
 
-      <div className={styles.stonesHead}>
-        <strong>{activeBrand ? "Материалы выбранного бренда" : "Витрина популярных декоров"}</strong>
-        <span>{filtered.length} позиций</span>
-      </div>
+      {activeBrand ? (
+        <>
+          <div className={styles.stonesHead}>
+            <strong>Материалы выбранного бренда</strong>
+            <span>{filtered.length} позиций</span>
+          </div>
 
-      <div className={styles.swatchesGrid}>
-        {filtered.map((stone, index) => (
-          <article key={stone.id} className={styles.swatchCard} style={{ background: cardTone(stone, index) }}>
-            <div className={styles.swatchInner}>
-              <span className={styles.swatchTitle}>{stone.title}</span>
-              <span className={styles.swatchMeta}>
-                {stone.priceFrom ? `от ${formatPrice(stone.priceFrom)} ₽/м²` : "от — ₽/м²"}
-              </span>
-              <Link className={styles.swatchAction} href={`/catalog-kamnya/${stone.stoneType}/${stone.slug}`} />
-            </div>
-          </article>
-        ))}
-      </div>
+          <div className={styles.swatchesGrid}>
+            {filtered.map((stone, index) => (
+              <article key={stone.id} className={styles.swatchCard} style={{ background: cardTone(stone, index) }}>
+                <div className={styles.swatchInner}>
+                  <span className={styles.swatchTitle}>{stone.title}</span>
+                  <span className={styles.swatchMeta}>
+                    {stone.priceFrom ? `от ${formatPrice(stone.priceFrom)} ₽/м²` : "от — ₽/м²"}
+                  </span>
+                  <Link className={styles.swatchAction} href={`/catalog-kamnya/${stone.stoneType}/${stone.slug}`} />
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }

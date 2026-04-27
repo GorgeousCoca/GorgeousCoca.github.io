@@ -19,7 +19,23 @@ export default async function StoneCatalogPage() {
   return (
     <section className={`section ${styles.catalogPageTheme}`}>
       <div className="container">
-        <Suspense fallback={<div className="card">Загрузка фильтров...</div>}>
+        <Suspense
+          fallback={
+            <div className={styles.catalogFallback} aria-hidden="true">
+              <div className={`${styles.fallbackLine} ${styles.fallbackLineShort}`} />
+              <div className={`${styles.fallbackLine} ${styles.fallbackLineWide}`} />
+              <div className={`${styles.fallbackLine} ${styles.fallbackLineMedium}`} />
+              <div className={styles.fallbackGrid}>
+                <div className={styles.fallbackCard} />
+                <div className={styles.fallbackCard} />
+                <div className={styles.fallbackCard} />
+                <div className={styles.fallbackCard} />
+                <div className={styles.fallbackCard} />
+                <div className={styles.fallbackCard} />
+              </div>
+            </div>
+          }
+        >
           <StoneBrandsClient stones={stones} brands={brands} />
         </Suspense>
       </div>

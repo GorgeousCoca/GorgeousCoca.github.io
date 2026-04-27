@@ -40,6 +40,8 @@ export function ContactForm({ source, compact = false, className }: ContactFormP
       productType: String(formData.get("productType") ?? "не указан"),
       dimensions: String(formData.get("dimensions") ?? "не указаны"),
       comment: String(formData.get("message") ?? "без комментария"),
+      botCheck: formData.get("botCheck") === "on",
+      website: String(formData.get("website") ?? ""),
       source
     };
 
@@ -113,6 +115,14 @@ export function ContactForm({ source, compact = false, className }: ContactFormP
         <input name="botCheck" required type="checkbox" />
         &nbsp;Подтверждаю, что я не робот
       </label>
+      <input
+        autoComplete="off"
+        name="website"
+        tabIndex={-1}
+        type="text"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }}
+      />
       <label className="stack">
         <span className="form-note">Эскиз или фото проекта (опционально)</span>
         <input className="field" name="attachment" type="file" />

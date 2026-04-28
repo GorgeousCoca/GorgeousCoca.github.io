@@ -54,18 +54,6 @@ export type Project = SeoFields & {
   gallery: string[];
   testimonial?: string;
   productRefs: string[];
-  serviceRefs: string[];
-};
-
-export type Service = SeoFields & {
-  id: string;
-  slug: string;
-  title: string;
-  shortDescription: string;
-  description: string;
-  priceFrom: number;
-  duration: string;
-  image: string;
 };
 
 export type BlogCategory = {
@@ -141,7 +129,6 @@ export type CmsStore = {
   products: Product[];
   stoneSamples: StoneSample[];
   projects: Project[];
-  services: Service[];
   blogCategories: BlogCategory[];
   blogPosts: BlogPost[];
   teamMembers: TeamMember[];

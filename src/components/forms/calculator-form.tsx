@@ -86,8 +86,8 @@ export function CalculatorForm() {
           <Link className="button-secondary" href={`/contacts?${query}`}>
             Оформить заявку
           </Link>
-          <Link className="button-ghost" href="/services">
-            Смотреть услуги
+          <Link className="button-ghost" href="/catalog">
+            Смотреть каталог
           </Link>
         </div>
       </div>

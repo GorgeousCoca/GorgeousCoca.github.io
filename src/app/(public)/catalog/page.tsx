@@ -1,8 +1,17 @@
 import Link from "next/link";
 
+import { ProcessTimeline } from "@/components/avantgarde/process-timeline";
 import { PageHero } from "@/components/ui/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSettings } from "@/lib/site";
+
+const workflow = [
+  "Обсуждаем задачу, изделие и желаемый бюджет.",
+  "Выезжаем на точный замер и согласуем техническое решение.",
+  "Подбираем материал, профиль и комплект дополнительных опций.",
+  "Изготавливаем изделие на производстве с контролем качества.",
+  "Доставляем и монтируем в согласованное время."
+];
 
 export const metadata = buildMetadata({
   title: "Изделия из искусственного камня",
@@ -17,8 +26,12 @@ export default async function CatalogPage() {
   return (
     <>
       <PageHero
-        eyebrow="Изделия"
+        eyebrow={undefined}
         title="Изделия из искусственного камня любой сложности"
+        titleClassName="catalog-category-hero-title"
+        visualImageSrc="/images/portfolio-brands/Avarus-01.jpg"
+        visualImageAlt="Изделия из искусственного камня в реализованном проекте"
+        visualBadgeText="Пример реализованного проекта ArtellRock"
         description="Работаем по стандартным и индивидуальным размерам. Выберите направление и сразу переходите к расчету."
         actions={
           <>
@@ -35,7 +48,7 @@ export default async function CatalogPage() {
       <section className="section">
         <div className="container">
           <div className="grid grid-3 product-groups">
-            <article className="card stack">
+            <article className="card card--glass stack">
               <h3>Столешницы</h3>
               <div className="stack product-list">
                 <span>Столешницы из кварца</span>
@@ -45,7 +58,7 @@ export default async function CatalogPage() {
                 <span>Над стиральной машиной</span>
               </div>
               <div className="btn-row">
-                <Link className="button-secondary" href="/catalog/countertops">
+                <Link className="button-ghost" href="/catalog/countertops">
                   Подробнее
                 </Link>
                 <Link className="button" href="/calculator">
@@ -55,7 +68,7 @@ export default async function CatalogPage() {
               <p className="product-call">Или позвоните: {settings.phone}</p>
             </article>
 
-            <article className="card stack">
+            <article className="card card--glass stack">
               <h3>Подоконники</h3>
               <div className="stack product-list">
                 <span>Подоконники из кварца</span>
@@ -65,7 +78,7 @@ export default async function CatalogPage() {
                 <span>Решения по индивидуальным размерам</span>
               </div>
               <div className="btn-row">
-                <Link className="button-secondary" href="/catalog/window-sills">
+                <Link className="button-ghost" href="/catalog/window-sills">
                   Подробнее
                 </Link>
                 <Link className="button" href="/calculator">
@@ -75,7 +88,7 @@ export default async function CatalogPage() {
               <p className="product-call">Или позвоните: {settings.phone}</p>
             </article>
 
-            <article className="card stack">
+            <article className="card card--glass stack">
               <h3>Другие изделия</h3>
               <div className="stack product-list">
                 <span>Мойки и раковины</span>
@@ -85,7 +98,7 @@ export default async function CatalogPage() {
                 <span>Профили и кромки</span>
               </div>
               <div className="btn-row">
-                <Link className="button-secondary" href="/catalog/sinks">
+                <Link className="button-ghost" href="/catalog/sinks">
                   Подробнее
                 </Link>
                 <Link className="button" href="/calculator">
@@ -100,7 +113,7 @@ export default async function CatalogPage() {
 
       <section className="section">
         <div className="container">
-          <article className="card stack">
+          <article className="card card--glass stack">
             <h2>Изделия из кварцевого агломерата на заказ от ArtellRock</h2>
             <p>
               Кварцевый агломерат сочетает прочность, устойчивость к влаге и аккуратный внешний вид.
@@ -118,6 +131,8 @@ export default async function CatalogPage() {
           </article>
         </div>
       </section>
+
+      <ProcessTimeline steps={workflow} />
     </>
   );
 }

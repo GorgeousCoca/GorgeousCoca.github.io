@@ -36,13 +36,36 @@
 
 .heroLayout {
   display: grid;
-  gap: 0;
+  gap: 28px;
+  align-items: stretch;
 }
 
 .heroMain {
   display: grid;
   gap: 20px;
   max-width: min(1320px, 100%);
+}
+
+.heroVisual {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -14px 34px rgba(0, 0, 0, 0.24),
+    0 28px 54px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+  min-height: 420px;
+}
+
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 .heroMeta {
@@ -503,8 +526,28 @@
 }
 
 .timelineWrap {
+  --timeline-text: #f6f8f7;
+  --timeline-muted: rgba(246, 248, 247, 0.74);
+  --timeline-accent: #8ea8d6;
+  --timeline-accent-shadow: rgba(126, 152, 205, 0.24);
   display: grid;
   gap: 18px;
+  color: var(--timeline-text);
+}
+
+.home .timelineWrap {
+  --timeline-text: #f7f7f7;
+  --timeline-muted: rgba(247, 247, 247, 0.72);
+  --timeline-accent: #c8a15e;
+  --timeline-accent-shadow: rgba(200, 161, 94, 0.16);
+}
+
+.timelineWrap .servicesHead h2 {
+  color: var(--timeline-text);
+}
+
+.timelineWrap .servicesHead p {
+  color: var(--timeline-muted);
 }
 
 .timelineTrack {
@@ -526,8 +569,8 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 7px rgba(200, 161, 94, 0.16);
+  background: var(--timeline-accent);
+  box-shadow: 0 0 0 7px var(--timeline-accent-shadow);
 }
 
 .timelineBody {
@@ -537,7 +580,7 @@
 }
 
 .timelineStep {
-  color: var(--accent);
+  color: var(--timeline-accent);
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -546,11 +589,12 @@
 .timelineBody h3 {
   margin: 6px 0 8px;
   font-size: clamp(1.2rem, 2vw, 1.6rem);
+  color: var(--timeline-text);
 }
 
 .timelineBody p {
   margin: 0;
-  color: var(--muted);
+  color: var(--timeline-muted);
 }
 
 .calcReviews {
@@ -688,6 +732,14 @@
 }
 
 @media (min-width: 1024px) {
+  .heroLayout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  }
+
+  .heroMain {
+    max-width: 100%;
+  }
+
   .offerLead {
     gap: 24px;
   }
@@ -743,6 +795,14 @@
 
   .heroInner {
     padding: clamp(24px, 5vw, 50px) clamp(16px, 4.8vw, 28px);
+  }
+
+  .heroVisual {
+    min-height: 280px;
+  }
+
+  .heroVideo {
+    min-height: 280px;
   }
 
   .heroTitle {

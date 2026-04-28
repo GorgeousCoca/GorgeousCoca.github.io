@@ -28,7 +28,8 @@ export function PageHero({
   actions,
   titleClassName,
   visualImageSrc,
-  visualImageAlt
+  visualImageAlt,
+  visualBadgeText
 }: {
   eyebrow?: string;
   title: string;
@@ -37,6 +38,7 @@ export function PageHero({
   titleClassName?: string;
   visualImageSrc?: string;
   visualImageAlt?: string;
+  visualBadgeText?: string;
 }) {
   return (
     <section className="section page-hero">
@@ -56,7 +58,7 @@ export function PageHero({
                 width={1600}
                 height={1000}
               />
-              <div className="page-hero__badge">Quartz. Detail. Installation.</div>
+              <div className="page-hero__badge">{visualBadgeText ?? "Quartz. Detail. Installation."}</div>
             </div>
           </div>
         </div>

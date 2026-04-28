@@ -57,21 +57,7 @@ export const adminCollections = {
       { name: "afterImage", label: "Фото после", type: "text" },
       { name: "gallery", label: "Галерея через запятую", type: "textarea" },
       { name: "testimonial", label: "Отзыв клиента", type: "textarea" },
-      { name: "productRefs", label: "Связанные товары через запятую", type: "textarea" },
-      { name: "serviceRefs", label: "Связанные услуги через запятую", type: "textarea" }
-    ] satisfies AdminField[]
-  },
-  services: {
-    title: "Услуги",
-    description: "SEO-страницы услуг и цены",
-    fields: [
-      { name: "slug", label: "Slug", type: "text" },
-      { name: "title", label: "Название", type: "text" },
-      { name: "shortDescription", label: "Краткое описание", type: "textarea" },
-      { name: "description", label: "Описание", type: "textarea" },
-      { name: "priceFrom", label: "Цена от", type: "number" },
-      { name: "duration", label: "Срок", type: "text" },
-      { name: "image", label: "Изображение", type: "text" }
+      { name: "productRefs", label: "Связанные товары через запятую", type: "textarea" }
     ] satisfies AdminField[]
   },
   blogCategories: {

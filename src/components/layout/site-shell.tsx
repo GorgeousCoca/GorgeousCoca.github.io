@@ -41,7 +41,6 @@ export async function SiteShell({ children }: { children: React.ReactNode }) {
             <div className="stack">
               <strong>Документы</strong>
               <Link href="/privacy">Политика конфиденциальности</Link>
-              <Link href="/services">Услуги и цены</Link>
               <Link href="/calculator">Калькулятор</Link>
             </div>
           </div>

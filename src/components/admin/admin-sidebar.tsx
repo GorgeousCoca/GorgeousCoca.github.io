@@ -7,7 +7,6 @@ const items = [
   { href: "/admin/products", label: "Изделия" },
   { href: "/admin/stone-samples", label: "Каталог камня" },
   { href: "/admin/projects", label: "Портфолио" },
-  { href: "/admin/services", label: "Услуги" },
   { href: "/admin/blog-categories", label: "Категории блога" },
   { href: "/admin/blog-posts", label: "Статьи" },
   { href: "/admin/team", label: "Команда" },

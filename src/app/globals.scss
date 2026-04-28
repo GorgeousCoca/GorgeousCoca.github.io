@@ -186,6 +186,42 @@ p {
   border-color: rgba(211, 170, 103, 0.28);
 }
 
+.card--glass {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -14px 34px rgba(0, 0, 0, 0.24),
+    0 28px 54px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(18px) !important;
+  color: #f6f8f7;
+}
+
+.card--glass:hover {
+  transform: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -14px 34px rgba(0, 0, 0, 0.24),
+    0 28px 54px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.card--glass p,
+.card--glass span,
+.card--glass li {
+  color: rgba(246, 248, 247, 0.72) !important;
+}
+
+.card--glass h2,
+.card--glass h3 {
+  color: #f6f8f7 !important;
+}
+
+.card--glass .pill {
+  color: var(--foreground) !important;
+}
+
 .media-card {
   overflow: hidden;
   padding: 0;
@@ -267,6 +303,19 @@ p {
   background: rgba(255, 255, 255, 0.08);
   color: var(--accent);
   border-color: rgba(36, 54, 79, 0.18);
+}
+
+.card--glass .button-ghost {
+  background: linear-gradient(135deg, var(--accent), #2f4469);
+  border-color: transparent;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 14px rgba(18, 25, 38, 0.25);
+}
+
+.card--glass .button-ghost:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(18, 25, 38, 0.35);
 }
 
 .pill-list {
@@ -547,6 +596,59 @@ body.catalog-emerald-theme .page-hero .section-title {
 
 .catalog-category-hero-title + p {
   color: #f6f8f7;
+}
+
+.about-page .section-header .section-title,
+.about-page .section-header p,
+.about-page .eyebrow {
+  color: #f6f8f7;
+}
+
+.about-page .about-top-row {
+  align-items: stretch;
+}
+
+.about-page .about-intro-card,
+.about-page .about-production-card {
+  min-height: 520px;
+}
+
+@media (max-width: 900px) {
+  .about-page .about-intro-card,
+  .about-page .about-production-card {
+    min-height: unset;
+  }
+}
+
+.contacts-page .info-list__item {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f6f8f7;
+}
+
+.contacts-page .field,
+.contacts-page .textarea,
+.contacts-page .select {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f6f8f7;
+}
+
+.contacts-page .field::placeholder,
+.contacts-page .textarea::placeholder {
+  color: rgba(246, 248, 247, 0.56);
+}
+
+.contacts-page .select option {
+  color: #121a27;
+}
+
+.contacts-page .form-note {
+  color: rgba(246, 248, 247, 0.68);
+}
+
+.contacts-page .contact-strip__content span {
+  color: rgba(246, 248, 247, 0.78);
 }
 
 .filter-bar {

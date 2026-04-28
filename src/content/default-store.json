@@ -12,8 +12,8 @@
       "color": "Белый с прожилкой",
       "thickness": "20 мм",
       "features": ["Под ключ", "Точный замер", "Гарантия 5 лет"],
-      "image": "/images/catalog/countertop-1.svg",
-      "gallery": ["/images/catalog/countertop-1.svg", "/images/catalog/countertop-2.svg"],
+      "image": "/images/portfolio-brands/Avant_Quartz-05.jpg",
+      "gallery": ["/images/portfolio-brands/Avant_Quartz-05.jpg", "/images/portfolio-brands/Avant_Quartz-06.jpg"],
       "isFeatured": true
     },
     {
@@ -28,8 +28,8 @@
       "color": "Графит",
       "thickness": "30 мм",
       "features": ["Премиальная кромка", "Скрытые стыки", "Монтаж за 1 день"],
-      "image": "/images/catalog/countertop-2.svg",
-      "gallery": ["/images/catalog/countertop-2.svg"],
+      "image": "/images/portfolio-brands/Avarus-05.jpg",
+      "gallery": ["/images/portfolio-brands/Avarus-05.jpg"],
       "isFeatured": true
     },
     {
@@ -44,8 +44,8 @@
       "color": "Белый",
       "thickness": "20 мм",
       "features": ["Износостойкость", "Точная геометрия", "Стабильный цвет"],
-      "image": "/images/catalog/sill-1.svg",
-      "gallery": ["/images/catalog/sill-1.svg"],
+      "image": "/images/portfolio-brands/Nobell_Quartz-02.jpg",
+      "gallery": ["/images/portfolio-brands/Nobell_Quartz-02.jpg"],
       "isFeatured": true
     },
     {
@@ -60,8 +60,8 @@
       "color": "Бежевый",
       "thickness": "20 мм",
       "features": ["Подоконник-столешница", "Усиленная опора", "Премиальная текстура"],
-      "image": "/images/catalog/sill-2.svg",
-      "gallery": ["/images/catalog/sill-2.svg"],
+      "image": "/images/portfolio-brands/Smart_Quartz-01.jpg",
+      "gallery": ["/images/portfolio-brands/Smart_Quartz-01.jpg"],
       "isFeatured": false
     },
     {
@@ -109,6 +109,7 @@
       "thicknesses": ["20 мм", "30 мм"],
       "finish": "Полированная",
       "description": "Декор с выразительными прожилками для современных кухонь и ванных.",
+      "priceFrom": 18750,
       "image": "/images/stone/stone-1.svg",
       "isFeatured": true
     },
@@ -165,6 +166,7 @@
       "thicknesses": ["20 мм", "30 мм"],
       "finish": "Полированная",
       "description": "Один из самых востребованных декоров Radianz для кухонь и санузлов.",
+      "priceFrom": 12250,
       "image": "/images/stone/stone-5.svg",
       "isFeatured": true
     },
@@ -179,63 +181,12 @@
       "thicknesses": ["20 мм"],
       "finish": "Матовая",
       "description": "Светлый кварцевый декор для чистых и легких интерьеров.",
+      "priceFrom": 13500,
       "image": "/images/stone/stone-6.svg",
       "isFeatured": true
     }
   ],
   "projects": [],
-  "services": [
-    {
-      "id": "service_1",
-      "slug": "zamer",
-      "title": "Замер",
-      "shortDescription": "Точный выездной замер с учетом примыканий и техники.",
-      "description": "Выезжаем на объект, снимаем размеры, оцениваем нюансы монтажа и согласуем техническое задание до производства.",
-      "priceFrom": 2500,
-      "duration": "1 день",
-      "image": "/images/services/service-1.svg"
-    },
-    {
-      "id": "service_2",
-      "slug": "dizayn-proekt",
-      "title": "Дизайн-проект",
-      "shortDescription": "Подбор декора, профилей и решений под интерьер.",
-      "description": "Помогаем выбрать оттенок, фактуру, толщину и узлы сопряжений, чтобы изделие выглядело цельно в готовом интерьере.",
-      "priceFrom": 5000,
-      "duration": "1-2 дня",
-      "image": "/images/services/service-2.svg"
-    },
-    {
-      "id": "service_3",
-      "slug": "izgotovlenie",
-      "title": "Изготовление",
-      "shortDescription": "Производство изделий из кварцевого агломерата на собственном оборудовании.",
-      "description": "Работаем по согласованным чертежам, контролируем качество кромки, стыков и геометрии на каждом этапе.",
-      "priceFrom": 14900,
-      "duration": "5-10 дней",
-      "image": "/images/services/service-3.svg"
-    },
-    {
-      "id": "service_4",
-      "slug": "dostavka",
-      "title": "Доставка",
-      "shortDescription": "Бережная доставка по Санкт-Петербургу и области.",
-      "description": "Организуем безопасную логистику готовых изделий с учетом веса, габаритов и этажности объекта.",
-      "priceFrom": 3500,
-      "duration": "В день монтажа",
-      "image": "/images/services/service-4.svg"
-    },
-    {
-      "id": "service_5",
-      "slug": "montazh",
-      "title": "Монтаж",
-      "shortDescription": "Аккуратная установка с проверкой примыканий и герметизацией.",
-      "description": "Финальный этап, на котором изделие выставляется, закрепляется и проходит контроль качества вместе с клиентом.",
-      "priceFrom": 9000,
-      "duration": "1 день",
-      "image": "/images/services/service-5.svg"
-    }
-  ],
   "blogCategories": [
     { "id": "blogcat_1", "slug": "uhod-za-kamnem", "title": "Уход за камнем" },
     { "id": "blogcat_2", "slug": "dizayn-interera", "title": "Дизайн интерьера" },
@@ -282,7 +233,7 @@
       "name": "Виталий Смирнов",
       "role": "Руководитель проектов",
       "bio": "Координирует сложные заказы, отвечает за сроки и клиентский сервис.",
-      "image": "/images/team/team-1.svg"
+      "image": "/images/фото-Виталика.jpg"
     },
     {
       "id": "team_2",

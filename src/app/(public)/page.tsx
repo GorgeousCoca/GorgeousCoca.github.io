@@ -1,5 +1,5 @@
 import { HomeAvantgarde } from "@/components/avantgarde/home-avantgarde";
-import { getFeaturedData, getServices, getSettings } from "@/lib/site";
+import { getFeaturedData, getSettings } from "@/lib/site";
 
 const workflow = [
   "Обсуждаем задачу, изделие и желаемый бюджет.",
@@ -10,12 +10,11 @@ const workflow = [
 ];
 
 export default async function HomePage() {
-  const [settings, featured, services] = await Promise.all([getSettings(), getFeaturedData(), getServices()]);
+  const [settings, featured] = await Promise.all([getSettings(), getFeaturedData()]);
 
   return (
     <HomeAvantgarde
       settings={settings}
-      services={services}
       featuredProducts={featured.featuredProducts}
       featuredProjects={featured.featuredProjects}
       testimonials={featured.testimonials}

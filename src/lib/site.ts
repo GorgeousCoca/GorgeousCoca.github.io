@@ -16,7 +16,6 @@ export const getStoneSamples = cache(async () => {
   ];
 });
 export const getProjects = cache(async () => listCollection("projects"));
-export const getServices = cache(async () => listCollection("services"));
 export const getBlogPosts = cache(async () => listCollection("blogPosts"));
 export const getBlogCategories = cache(async () => listCollection("blogCategories"));
 export const getTestimonials = cache(async () => listCollection("testimonials"));
@@ -31,7 +30,6 @@ export const getStoneBySlug = cache(async (slug: string) => {
   return stones.find((item) => item.slug === slug) ?? null;
 });
 export const getProjectBySlug = cache(async (slug: string) => getBySlug("projects", slug));
-export const getServiceBySlug = cache(async (slug: string) => getBySlug("services", slug));
 export const getBlogPostBySlug = cache(async (slug: string) => getBySlug("blogPosts", slug));
 
 export async function getFeaturedData() {

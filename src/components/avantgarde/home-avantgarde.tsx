@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { ContactForm } from "@/components/forms/contact-form";
-import type { CompanySettings, Product, Project, Service, Testimonial } from "@/types/content";
+import type { CompanySettings, Product, Project, Testimonial } from "@/types/content";
 
 import styles from "./avantgarde-home.module.scss";
 import { Hero } from "./hero";
@@ -11,7 +11,6 @@ import { ProcessTimeline } from "./process-timeline";
 
 type HomeAvantgardeProps = {
   settings: CompanySettings;
-  services: Service[];
   featuredProducts: Product[];
   featuredProjects: Project[];
   testimonials: Testimonial[];
@@ -21,7 +20,6 @@ type HomeAvantgardeProps = {
 
 export function HomeAvantgarde({
   settings,
-  services: _services,
   featuredProducts,
   featuredProjects: _featuredProjects,
   testimonials,

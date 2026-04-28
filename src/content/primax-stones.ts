@@ -75,5 +75,5 @@ export const primaxStones: StoneSample[] = primaxSeeds.map((seed, index) => ({
     "Кварцевый агломерат Primax для кухонь, ванных и коммерческих поверхностей. Подходит для проектов с акцентом на долговечность и премиальную эстетику.",
   image: "/images/quartz-surface-light.svg",
   isFeatured: ["723", "702", "770", "312", "111"].includes(seed.code),
-  priceFrom: seed.priceFrom ?? null
+  priceFrom: null
 }));

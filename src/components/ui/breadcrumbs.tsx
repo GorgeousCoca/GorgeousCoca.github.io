@@ -8,7 +8,6 @@ const labelMap: Record<string, string> = {
   "catalog-kamnya": "Каталог камня",
   portfolio: "Портфолио",
   calculator: "Калькулятор",
-  services: "Услуги",
   about: "О компании",
   contacts: "Контакты",
   blog: "Блог",

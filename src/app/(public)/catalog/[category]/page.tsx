@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
+import { ProcessTimeline } from "@/components/avantgarde/process-timeline";
 import { MediaCard, PageHero } from "@/components/ui/content";
 import { productTypeLabels } from "@/lib/filters/catalog";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -23,6 +25,7 @@ type CategoryLandingContent = {
   showHeroBadges?: boolean;
   heroImageSrc?: string;
   heroImageAlt?: string;
+  heroBadgeText?: string;
   introTitle: string;
   introText: string[];
   featureTitle: string;
@@ -36,14 +39,16 @@ type CategoryLandingContent = {
   popularColors: string[];
   showcaseTitle: string;
   showcaseText: string;
-  showcaseExamples: { title: string; details: string[]; price: string }[];
+  showcaseExamples: { title: string; details: string[]; price?: string; image?: string }[];
   trustTitle: string;
   trustCards: { title: string; text: string }[];
   whyCards: { title: string; text: string }[];
   processTitle: string;
   processSteps: { step: string; text: string }[];
+  animatedWorkflowSteps?: string[];
   finalTitle: string;
   finalText: string;
+  showFinalSection?: boolean;
   showPopularColors?: boolean;
 };
 
@@ -52,12 +57,16 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
     metaTitle: "Столешницы из искусственного камня на заказ",
     metaDescription:
       "Столешницы из кварцевого агломерата под заказ в Санкт-Петербурге: замер, изготовление, доставка и монтаж под ключ.",
-    eyebrow: "Столешницы на заказ",
+    eyebrow: undefined,
     heroTitle: "Столешницы из искусственного камня в Санкт-Петербурге",
     heroDescription:
       "Изготавливаем столешницы на кухню и в ванную под ваш проект: от подбора материала и замера до монтажа под ключ. Работаем с кварцевым агломератом и акриловым камнем, учитываем геометрию помещения, технику, фартук и все примыкания.",
-    heroPromo: "Гарантия низкой цены",
+    heroPromo: "Изготовление столешниц на заказ",
     heroPriceFrom: "от 7 670 ₽/м² за материал",
+    showHeroBadges: false,
+    heroImageSrc: "/images/portfolio-brands/Avant_Quartz-05.jpg",
+    heroImageAlt: "Столешница из искусственного камня в реализованном проекте",
+    heroBadgeText: "Пример работы из Avant Quartz 7030",
     introTitle: "Столешница из искусственного камня - лучшее решение для интерьера",
     introText: [
       "Столешницы из искусственного камня популярны за счет сочетания эстетики и практичности. Поверхность выглядит аккуратно, легко вписывается в современный интерьер и выдерживает ежедневную нагрузку.",
@@ -72,12 +81,7 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
       "Большой выбор оттенков и фактур под любой интерьер",
       "Гигиеничность и легкость в повседневном уходе"
     ],
-    quickLinks: [
-      { label: "Столешницы из кварца", href: "/catalog-kamnya" },
-      { label: "Столешницы из акрила", href: "/catalog-kamnya" },
-      { label: "Столешницы на кухню", href: "/catalog/countertops" },
-      { label: "Столешницы в ванную", href: "/catalog/countertops" }
-    ],
+    quickLinks: [],
     pricingTitle: "Как узнать стоимость столешницы из камня",
     pricingText: [
       "Вы можете оставить заявку и получить консультацию специалиста, чтобы быстро сориентироваться по бюджету и срокам.",
@@ -88,25 +92,26 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
       "Цвет задает характер всей кухни или ванной зоны: может быть акцентным, нейтральным или поддерживать общий тон интерьера.",
       "При выборе важно учитывать фасады, освещение, кромку и фактуру, чтобы итоговое изделие выглядело цельно."
     ],
-    popularColors: ["Avant Quartz 7030", "Avarus R-541", "Grandex M-717", "Radianz UG-950", "Primax 884"],
+    popularColors: [],
+    showPopularColors: false,
     showcaseTitle: "Примеры реализованных столешниц и ориентиры по стоимости",
     showcaseText:
       "Ниже - типовые форматы изделий, которые чаще всего заказывают для кухонь и ванных. Финальная цена зависит от размера, конфигурации, кромки, фартука и сложности монтажа.",
     showcaseExamples: [
       {
         title: "Столешница прямая с низким фартуком",
-        details: ["Кварцевый агломерат", "Avarus R-541 Снега Сибири"],
-        price: "от 78 000 ₽ под ключ"
+        details: ["Avarus R-541 Снега Сибири"],
+        image: "/images/portfolio-brands/Avarus-05.jpg"
       },
       {
         title: "Столешница угловая с фартуком",
-        details: ["Кварцевый агломерат", "Radianz AL450 Alluring"],
-        price: "от 183 000 ₽ под ключ"
+        details: ["Radianz AL450 Alluring"],
+        image: "/images/portfolio-brands/Avant_Quartz-06.jpg"
       },
       {
         title: "Столешница П-образная с подоконником",
-        details: ["Кварцевый агломерат", "Avant Quartz 7020 Амбуаз"],
-        price: "от 279 000 ₽ под ключ"
+        details: ["Avant Quartz 7020 Амбуаз"],
+        image: "/images/portfolio-brands/Nobell_Quartz-03.jpg"
       }
     ],
     trustTitle: "Почему клиенты выбирают нас",
@@ -161,6 +166,14 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
         text: "Передаем готовый результат и гарантийные обязательства."
       }
     ],
+    animatedWorkflowSteps: [
+      "Связываетесь с нами любым удобным способом и описываете задачу по изделию.",
+      "Специалист выезжает на объект, выполняет точные размеры и согласует технические детали.",
+      "Изготавливаем изделие по утвержденным параметрам и контролируем качество на каждом этапе.",
+      "Привозим в согласованное время и устанавливаем аккуратно, с проверкой примыканий.",
+      "Передаем готовый результат и гарантийные обязательства."
+    ],
+    showFinalSection: false,
     finalTitle: "Нужен расчет столешницы под ваш проект?",
     finalText:
       "Отправьте размеры и фото помещения. Подготовим ориентир по стоимости и срокам, а после замера дадим точное коммерческое предложение."
@@ -178,6 +191,7 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
     showHeroBadges: false,
     heroImageSrc: "/images/portfolio-brands/Avarus-01.jpg",
     heroImageAlt: "Подоконник из искусственного камня Avarus в реализованном проекте",
+    heroBadgeText: "Пример работы из Avarus RM543",
     introTitle: "Подоконники из камня - практичное решение для интерьера",
     introText: [
       "Подоконник должен быть не только аккуратным визуально, но и устойчивым к ежедневной эксплуатации. Искусственный камень хорошо справляется с влагой, температурными перепадами и бытовыми нагрузками.",
@@ -211,18 +225,28 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
     showcaseExamples: [
       {
         title: "Серый подоконник из искусственного камня",
-        details: ["Кварцевый агломерат", "VicoStone BQ-9470 Azul Aran"],
-        price: "от 14 000 ₽ под ключ"
+        details: ["VicoStone BQ-9470 Azul Aran"],
+        image: "/images/Подоконник-01.jpg"
       },
       {
         title: "Эркерный бесшовный подоконник",
-        details: ["Акриловый камень", "Primax S-5040 Pure White"],
-        price: "от 55 000 ₽ под ключ"
+        details: ["Primax S-5040 Pure White"],
+        image: "/images/Подоконник-02.jpg"
       },
       {
         title: "Черный подоконник",
-        details: ["Кварцевый агломерат", "Smart Quartz Negro Imperial"],
-        price: "от 13 000 ₽ под ключ"
+        details: ["Smart Quartz Negro Imperial"],
+        image: "/images/Подоконник-03.jpg"
+      },
+      {
+        title: "Светлая столешница из кварцевого агломерата",
+        details: ["Avant Quartz 7030"],
+        image: "/images/portfolio-brands/Avant_Quartz-01.jpg"
+      },
+      {
+        title: "Столешница с текстурой мрамора",
+        details: ["Avarus R-541"],
+        image: "/images/portfolio-brands/Avarus-01.jpg"
       }
     ],
     trustTitle: "Почему клиенты выбирают нас",
@@ -246,37 +270,41 @@ const landingByCategory: Partial<Record<ProductType, CategoryLandingContent>> = 
         text: "Кварц устойчив к влаге, перепадам температуры и механическим воздействиям."
       },
       {
-        title: "Легкий уход",
-        text: "Непористая структура не впитывает загрязнения и запахи."
-      },
-      {
-        title: "Гибкость в дизайне",
-        text: "Подбираем оттенок и фактуру под окна, стены и общий стиль интерьера."
+        title: "Цена",
+        text: "Если вы найдете предложение дешевле, мы готовы сделать скидку на свое усмотрение."
       }
     ],
     processTitle: "Как проходит заказ подоконников из искусственного камня",
     processSteps: [
       {
-        step: "01. Заявка",
+        step: "1. Заявка",
         text: "Обсуждаем задачу, размеры и желаемый стиль будущего подоконника."
       },
       {
-        step: "02. Замер",
-        text: "Выезжаем на объект, снимаем точные размеры и проверяем узлы примыкания."
+        step: "2. Замер",
+        text: "Выезжаем на объект, снимаем точные размеры и демонстрируем выбранные вами образцы камня."
       },
       {
-        step: "03. Производство",
+        step: "3. Производство",
         text: "Изготавливаем изделие по согласованной конфигурации на собственном производстве."
       },
       {
-        step: "04. Доставка и монтаж",
+        step: "4. Доставка и монтаж",
         text: "Доставляем и монтируем подоконник с контролем качества финишных работ."
       },
       {
-        step: "05. Гарантия",
+        step: "5. Гарантия",
         text: "Фиксируем гарантийные обязательства на материал и монтаж."
       }
     ],
+    animatedWorkflowSteps: [
+      "Обсуждаем задачу, изделие и желаемый бюджет.",
+      "Выезжаем на точный замер и согласуем техническое решение.",
+      "Подбираем материал, профиль и комплект дополнительных опций.",
+      "Изготавливаем изделие на производстве с контролем качества.",
+      "Доставляем и монтируем в согласованное время."
+    ],
+    showFinalSection: false,
     finalTitle: "Хотите рассчитать подоконник в вашем проекте?",
     finalText:
       "Присылайте размеры и фото оконных зон. Подскажем оптимальное решение и рассчитаем стоимость под ключ."
@@ -325,6 +353,7 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
         titleClassName="catalog-category-hero-title"
         visualImageSrc={landing?.heroImageSrc}
         visualImageAlt={landing?.heroImageAlt}
+        visualBadgeText={landing?.heroBadgeText}
         description={
           landing?.heroDescription ??
           `Расширенная посадочная страница по направлению "${label}". Здесь собраны решения, примеры исполнения и переходы к карточкам изделий.`
@@ -346,7 +375,7 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
         <>
           <section className="section">
             <div className="container grid grid-2">
-              <article className="card stack">
+              <article className="card card--glass stack">
                 <h2>{landing.introTitle}</h2>
                 <div className="stack">
                   {landing.introText.map((paragraph) => (
@@ -370,7 +399,7 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
                   </div>
                 ) : null}
               </article>
-              <article className="card stack">
+              <article className="card card--glass stack">
                 <h2>{landing.pricingTitle}</h2>
                 <div className="stack">
                   {landing.pricingText.map((paragraph) => (
@@ -406,19 +435,24 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
 
           <section className="section">
             <div className="container grid grid-3">
-              <article className="card stack" style={{ gridColumn: "1 / -1" }}>
+              <article className="card card--glass stack" style={{ gridColumn: "1 / -1" }}>
                 <h2>{landing.showcaseTitle}</h2>
                 <p>{landing.showcaseText}</p>
               </article>
               {landing.showcaseExamples.map((item) => (
-                <article key={item.title} className="card stack">
-                  <h3>{item.title}</h3>
-                  <div className="stack product-list">
-                    {item.details.map((detail) => (
-                      <span key={detail}>{detail}</span>
-                    ))}
+                <article key={item.title} className="card card--glass media-card stack">
+                  {item.image ? (
+                    <Image className="media-image" src={item.image} alt={item.title} width={800} height={500} style={{ width: '100%', height: '240px', objectFit: 'cover' }} />
+                  ) : null}
+                  <div className="media-card__content stack">
+                    <h3>{item.title}</h3>
+                    <div className="stack product-list">
+                      {item.details.map((detail) => (
+                        <span key={detail}>{detail}</span>
+                      ))}
+                    </div>
+                    {item.price ? <span className="pill">{item.price}</span> : null}
                   </div>
-                  <span className="pill">{item.price}</span>
                 </article>
               ))}
             </div>
@@ -426,17 +460,17 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
 
           <section className="section">
             <div className="container grid grid-3">
-              <article className="card stack" style={{ gridColumn: "1 / -1" }}>
+              <article className="card card--glass stack" style={{ gridColumn: "1 / -1" }}>
                 <h2>{landing.trustTitle}</h2>
               </article>
               {landing.trustCards.map((item) => (
-                <article key={item.title} className="card stack">
+                <article key={item.title} className="card card--glass stack">
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </article>
               ))}
               {landing.whyCards.map((item) => (
-                <article key={item.title} className="card stack">
+                <article key={item.title} className="card card--glass stack">
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </article>
@@ -456,15 +490,19 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
               description={product.summary}
               price={product.basePrice}
               meta={`${product.material} · ${product.thickness}`}
+              imageUrl={product.image}
+              className="card--glass"
             />
           ))}
         </div>
       </section>
 
-      {landing ? (
+      {landing?.animatedWorkflowSteps?.length ? (
+        <ProcessTimeline steps={landing.animatedWorkflowSteps} />
+      ) : landing ? (
         <section className="section">
           <div className="container">
-            <article className="card stack">
+            <article className="card card--glass stack">
               <h2>{landing.processTitle}</h2>
               <div className="stack">
                 {landing.processSteps.map((step) => (
@@ -478,10 +516,10 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      {landing ? (
+      {landing && landing.showFinalSection !== false ? (
         <section className="section">
           <div className="container">
-            <article className="card stack">
+            <article className="card card--glass stack">
               <h2>{landing.finalTitle}</h2>
               <p>{landing.finalText}</p>
               <div className="btn-row">

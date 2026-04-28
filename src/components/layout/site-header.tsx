@@ -10,7 +10,6 @@ import type { CompanySettings } from "@/types/content";
 const navItems = [
   { href: "/catalog-kamnya", label: "Каталог камня" },
   { href: "/portfolio", label: "Портфолио" },
-  { href: "/services", label: "Услуги" },
   { href: "/about", label: "О компании" },
   { href: "/contacts", label: "Контакты" }
 ];

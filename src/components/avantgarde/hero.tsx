@@ -64,6 +64,19 @@ export function Hero({ title, subtitle, primaryCta }: HeroProps) {
                 <span>59.9343° N, 30.3351° E</span>
               </div>
             </div>
+            <aside className={styles.heroVisual} aria-label="Видео производства">
+              <video
+                className={styles.heroVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                poster="/images/Производство.webp"
+              >
+                <source src="/images/Видио-производства.mp4" type="video/mp4" />
+              </video>
+            </aside>
           </div>
         </div>
       </div>

@@ -10,7 +10,6 @@ import type {
   ContactRequest,
   Product,
   Project,
-  Service,
   StoneSample
 } from "@/types/content";
 import { uid } from "@/lib/utils";
@@ -39,7 +38,6 @@ type CollectionKey =
   | "products"
   | "stoneSamples"
   | "projects"
-  | "services"
   | "blogCategories"
   | "blogPosts"
   | "teamMembers"
@@ -51,7 +49,6 @@ type CollectionMap = {
   products: Product;
   stoneSamples: StoneSample;
   projects: Project;
-  services: Service;
   blogCategories: BlogCategory;
   blogPosts: BlogPost;
   teamMembers: CmsStore["teamMembers"][number];
@@ -65,7 +62,7 @@ export async function listCollection<K extends CollectionKey>(key: K): Promise<C
   return store[key] as CollectionMap[K][];
 }
 
-export async function getBySlug<K extends "products" | "stoneSamples" | "projects" | "services" | "blogPosts">(
+export async function getBySlug<K extends "products" | "stoneSamples" | "projects" | "blogPosts">(
   key: K,
   slug: string
 ) {

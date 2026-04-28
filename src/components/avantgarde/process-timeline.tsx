@@ -27,7 +27,7 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.4 }}
               >
-                <span className={styles.timelineStep}>Step {String(index + 1).padStart(2, "0")}</span>
+                <span className={styles.timelineStep}>Step {index + 1}</span>
                 <h3>{step}</h3>
                 <p>Клиент получает прозрачный прогресс, дедлайны и контроль качества на каждом этапе.</p>
               </motion.div>

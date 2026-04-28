@@ -11,7 +11,7 @@ export function ContactMessageDraft() {
   }
 
   return (
-    <div className="card stack">
+    <div className="card card--glass stack">
       <span className="eyebrow">Черновик из калькулятора</span>
       <p>{message}</p>
     </div>

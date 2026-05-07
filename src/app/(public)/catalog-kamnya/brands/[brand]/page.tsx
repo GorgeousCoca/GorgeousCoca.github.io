@@ -69,8 +69,8 @@ export default async function BrandCatalogPage({ params }: PageProps) {
           <div className={styles.brandPageHead}>
             <h1>{activeBrand.name}</h1>
             <p>
-              В каталоге {activeBrand.count} позиций. Нажмите на декор, чтобы открыть карточку материала и
-              отправить заявку с выбранным брендом.
+              В каталоге {activeBrand.count} позиций. Нажмите на декор, чтобы перейти к калькулятору расчёта
+              стоимости.
             </p>
           </div>
           <BrandStonesGrid stones={brandStones} />

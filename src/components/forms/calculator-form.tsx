@@ -25,7 +25,7 @@ export function CalculatorForm() {
 
   return (
     <div className="grid grid-2">
-      <form className="card stack">
+      <form className="stack">
         <div className="form-grid">
           <label className="stack">
             <span>Длина, мм</span>

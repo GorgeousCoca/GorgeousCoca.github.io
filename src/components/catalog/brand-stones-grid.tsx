@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, hasListedPricePerSqm } from "@/lib/utils";
 import type { StoneSample } from "@/types/content";
 
 import styles from "./stone-brands.module.scss";
@@ -36,9 +36,11 @@ export function BrandStonesGrid({ stones }: BrandStonesGridProps) {
           <div className={styles.swatchInner}>
             <span className={styles.swatchTitle}>{stone.title}</span>
             <span className={styles.swatchMeta}>
-              {stone.priceFrom ? `от ${formatPrice(stone.priceFrom)} ₽/м²` : "от — ₽/м²"}
+              {hasListedPricePerSqm(stone.priceFrom)
+                ? `от ${formatPrice(stone.priceFrom)} ₽/м²`
+                : "от — ₽/м²"}
             </span>
-            <Link className={styles.swatchAction} href={`/catalog-kamnya/${stone.stoneType}/${stone.slug}`} />
+            <Link className={styles.swatchAction} href="/calculator" aria-label="Перейти к калькулятору расчёта" />
           </div>
         </article>
       ))}

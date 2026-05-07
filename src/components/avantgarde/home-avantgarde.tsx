@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { ContactForm } from "@/components/forms/contact-form";
-import { formatCompanyPhones, getCompanyPhones } from "@/lib/company-phones";
+import { getCompanyPhones } from "@/lib/company-phones";
 import type { CompanySettings, Product, Project, Testimonial } from "@/types/content";
 
 import styles from "./avantgarde-home.module.scss";
@@ -27,6 +27,7 @@ export function HomeAvantgarde({
   manifesto: _manifesto,
   workflow
 }: HomeAvantgardeProps) {
+  const phones = getCompanyPhones(settings);
   const productGroups = [
     {
       title: "Столешницы",
@@ -96,7 +97,12 @@ export function HomeAvantgarde({
                     Рассчитать стоимость
                   </Link>
                 </div>
-                <p className={styles.productPhone}>Или позвоните: {settings.phone}</p>
+                <p className={styles.productPhone}>
+                  <span>Или позвоните:</span>
+                  {phones.map((phone) => (
+                    <span key={`${group.title}-${phone}`}>{phone}</span>
+                  ))}
+                </p>
               </article>
             ))}
           </div>
@@ -126,7 +132,12 @@ export function HomeAvantgarde({
                   Контакты
                 </Link>
               </div>
-              <p>Телефон: {settings.phone}</p>
+              <p className={styles.contactPhones}>
+                <span>Телефон:</span>
+                {phones.map((phone) => (
+                  <span key={`contact-side-${phone}`}>{phone}</span>
+                ))}
+              </p>
               <p>Email: {settings.email}</p>
               <p>Адрес: {settings.address}</p>
             </article>

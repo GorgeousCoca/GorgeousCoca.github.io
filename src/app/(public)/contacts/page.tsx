@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { ContactMessageDraft } from "@/components/forms/contact-message-draft";
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/ui/content";
+import { getCompanyPhones, toTelHref } from "@/lib/company-phones";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSettings } from "@/lib/site";
 
@@ -15,6 +16,7 @@ export const metadata = buildMetadata({
 
 export default async function ContactsPage() {
   const settings = await getSettings();
+  const phones = getCompanyPhones(settings);
 
   return (
     <>
@@ -28,9 +30,11 @@ export default async function ContactsPage() {
         description="Оставьте заявку через форму, позвоните напрямую или приезжайте по адресу производства и офиса."
         actions={
           <>
-            <a className="button" href={`tel:${settings.phone.replace(/\D/g, "")}`}>
-              Позвонить
-            </a>
+            {phones.map((phone) => (
+              <a key={phone} className="button" href={toTelHref(phone)}>
+                Позвонить {phone}
+              </a>
+            ))}
             <Link className="button-secondary" href="/calculator">
               Быстрый расчет
             </Link>
@@ -43,7 +47,11 @@ export default async function ContactsPage() {
             <div className="card card--glass stack">
               <h2>Контактная информация</h2>
               <div className="info-list">
-                <div className="info-list__item">{settings.phone}</div>
+                {phones.map((phone) => (
+                  <div key={phone} className="info-list__item">
+                    <a href={toTelHref(phone)}>{phone}</a>
+                  </div>
+                ))}
                 <div className="info-list__item">{settings.email}</div>
                 <div className="info-list__item">{settings.address}</div>
                 <div className="info-list__item">{settings.metro}</div>

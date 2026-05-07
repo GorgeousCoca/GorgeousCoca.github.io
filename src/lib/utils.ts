@@ -2,6 +2,11 @@ export function formatPrice(value: number) {
   return new Intl.NumberFormat("ru-RU").format(value);
 }
 
+/** Показываем цену в каталоге только если задана явная положительная ₽/м² (0 и отсутствие — «по запросу»). */
+export function hasListedPricePerSqm(value: number | null | undefined): value is number {
+  return typeof value === "number" && value > 0;
+}
+
 export function slugToTitle(value: string) {
   return value
     .split("-")

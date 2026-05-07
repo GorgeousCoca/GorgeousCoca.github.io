@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { getCompanyPhones } from "@/lib/company-phones";
 import type { CompanySettings } from "@/types/content";
 
 const navItems = [
@@ -18,6 +19,7 @@ export function SiteHeader({ settings }: { settings: CompanySettings }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const isStoneCatalogTheme = pathname.startsWith("/catalog-kamnya");
+  const phones = getCompanyPhones(settings);
 
   useEffect(() => {
     if (isStoneCatalogTheme) {
@@ -37,7 +39,11 @@ export function SiteHeader({ settings }: { settings: CompanySettings }) {
         <div className="site-header__inner">
           <Link className="site-brand" href="/">
             <strong>{settings.companyName}</strong>
-            <span className="muted">{settings.phone}</span>
+            <span className="muted site-brand__phones">
+              {phones.map((phone) => (
+                <span key={phone}>{phone}</span>
+              ))}
+            </span>
           </Link>
 
           <nav className="site-nav" aria-label="Основная навигация">

@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { formatPrice } from "@/lib/utils";
-import type { StoneBrand } from "@/lib/stone/brands";
+import { formatPrice, hasListedPricePerSqm } from "@/lib/utils";
+import { manufacturerToSlug, type StoneBrand } from "@/lib/stone/brands";
 import type { StoneSample } from "@/types/content";
 
 import styles from "./stone-brands.module.scss";
@@ -77,9 +77,8 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
     if (!activeBrand) {
       return [];
     }
-    const activeBrandName = brands.find((item) => item.slug === activeBrand)?.name;
-    return activeBrandName ? stones.filter((stone) => stone.manufacturer === activeBrandName) : stones;
-  }, [activeBrand, brands, stones]);
+    return stones.filter((stone) => manufacturerToSlug(stone.manufacturer) === activeBrand);
+  }, [activeBrand, stones]);
 
   return (
     <section className={styles.catalogSurface}>
@@ -89,8 +88,8 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
             <span className="eyebrow">Каталог кварца по брендам</span>
             <h1>Кварцевый агломерат - каталог цветов</h1>
             <p>
-              Выберите бренд через поиск или селект. Ниже появятся декоры с ценами и переходом в карточку
-              материала.
+              Выберите бренд через поиск или селект. Ниже появятся декоры с ценами; по клику — переход к
+              калькулятору расчёта стоимости.
             </p>
           </div>
 
@@ -197,9 +196,11 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
                 <div className={styles.swatchInner}>
                   <span className={styles.swatchTitle}>{stone.title}</span>
                   <span className={styles.swatchMeta}>
-                    {stone.priceFrom ? `от ${formatPrice(stone.priceFrom)} ₽/м²` : "от — ₽/м²"}
+                    {hasListedPricePerSqm(stone.priceFrom)
+                      ? `от ${formatPrice(stone.priceFrom)} ₽/м²`
+                      : "от — ₽/м²"}
                   </span>
-                  <Link className={styles.swatchAction} href={`/catalog-kamnya/${stone.stoneType}/${stone.slug}`} />
+                  <Link className={styles.swatchAction} href="/calculator" aria-label="Перейти к калькулятору расчёта" />
                 </div>
               </article>
             ))}

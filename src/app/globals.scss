@@ -425,6 +425,15 @@ body.catalog-emerald-theme .site-main {
   font-size: 14px;
 }
 
+.site-brand__phones {
+  display: grid;
+  gap: 2px;
+}
+
+.site-brand__phones span {
+  display: block;
+}
+
 .site-nav {
   display: none;
   gap: 24px;
@@ -611,6 +620,12 @@ body.catalog-emerald-theme .page-hero .section-title {
 .about-page .about-intro-card,
 .about-page .about-production-card {
   min-height: 520px;
+}
+
+.about-page .about-team-image {
+  height: 360px;
+  object-fit: cover;
+  object-position: center 38%;
 }
 
 @media (max-width: 900px) {
@@ -982,6 +997,12 @@ body.catalog-emerald-theme .page-hero .section-title {
 
 .product-call {
   font-size: 14px;
+  display: grid;
+  gap: 2px;
+}
+
+.product-call span {
+  display: block;
 }
 
 .portfolio-showcase {

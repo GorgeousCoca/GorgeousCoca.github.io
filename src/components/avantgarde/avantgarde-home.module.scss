@@ -353,6 +353,22 @@
 .productPhone {
   margin: 0;
   color: rgba(247, 247, 247, 0.86);
+  display: grid;
+  gap: 2px;
+}
+
+.productPhone span {
+  display: block;
+}
+
+.contactPhones {
+  margin: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.contactPhones span {
+  display: block;
 }
 
 .trustCard,

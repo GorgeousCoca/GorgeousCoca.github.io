@@ -1,6 +1,5 @@
 import { cache } from "react";
 
-import { primaxStones } from "@/content/primax-stones";
 import { quartzBrandStones } from "@/content/quartz-brand-stones";
 import { listCollection, getBySlug, getCompanySettings, readStore } from "@/lib/cms/store";
 import type { ProductType, StoneType } from "@/types/content";
@@ -9,11 +8,7 @@ export const getProducts = cache(async () => listCollection("products"));
 export const getStoneSamples = cache(async () => {
   const fromStore = await listCollection("stoneSamples");
   const knownIds = new Set(fromStore.map((item) => item.id));
-  return [
-    ...fromStore,
-    ...primaxStones.filter((item) => !knownIds.has(item.id)),
-    ...quartzBrandStones.filter((item) => !knownIds.has(item.id))
-  ];
+  return [...fromStore, ...quartzBrandStones.filter((item) => !knownIds.has(item.id))];
 });
 export const getProjects = cache(async () => listCollection("projects"));
 export const getBlogPosts = cache(async () => listCollection("blogPosts"));
@@ -37,7 +32,7 @@ export async function getFeaturedData() {
 
   return {
     featuredProducts: store.products.filter((item) => item.isFeatured).slice(0, 4),
-    featuredStones: [...store.stoneSamples, ...primaxStones, ...quartzBrandStones]
+    featuredStones: [...store.stoneSamples, ...quartzBrandStones]
       .filter((item) => item.isFeatured)
       .slice(0, 4),
     featuredProjects: store.projects.slice(0, 3),

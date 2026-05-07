@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { ProcessTimeline } from "@/components/avantgarde/process-timeline";
 import { PageHero } from "@/components/ui/content";
+import { getCompanyPhones } from "@/lib/company-phones";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSettings } from "@/lib/site";
 
@@ -22,6 +23,7 @@ export const metadata = buildMetadata({
 
 export default async function CatalogPage() {
   const settings = await getSettings();
+  const phones = getCompanyPhones(settings);
 
   return (
     <>
@@ -65,7 +67,12 @@ export default async function CatalogPage() {
                   Рассчитать стоимость
                 </Link>
               </div>
-              <p className="product-call">Или позвоните: {settings.phone}</p>
+              <p className="product-call">
+                <span>Или позвоните:</span>
+                {phones.map((phone) => (
+                  <span key={`countertops-${phone}`}>{phone}</span>
+                ))}
+              </p>
             </article>
 
             <article className="card card--glass stack">
@@ -85,7 +92,12 @@ export default async function CatalogPage() {
                   Рассчитать стоимость
                 </Link>
               </div>
-              <p className="product-call">Или позвоните: {settings.phone}</p>
+              <p className="product-call">
+                <span>Или позвоните:</span>
+                {phones.map((phone) => (
+                  <span key={`window-sills-${phone}`}>{phone}</span>
+                ))}
+              </p>
             </article>
 
             <article className="card card--glass stack">
@@ -105,7 +117,12 @@ export default async function CatalogPage() {
                   Рассчитать стоимость
                 </Link>
               </div>
-              <p className="product-call">Или позвоните: {settings.phone}</p>
+              <p className="product-call">
+                <span>Или позвоните:</span>
+                {phones.map((phone) => (
+                  <span key={`other-${phone}`}>{phone}</span>
+                ))}
+              </p>
             </article>
           </div>
         </div>

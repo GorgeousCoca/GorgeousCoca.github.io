@@ -2,12 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { PageHero } from "@/components/ui/content";
+import { toTelHref } from "@/lib/company-phones";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getTeamMembers } from "@/lib/site";
 
 const socialLinks = {
   vk: "https://vk.com/club230045850?ysclid=mo5ny4mikt343003951",
   avito: "https://www.avito.ru/"
+};
+
+const teamPhonesByName: Record<string, string> = {
+  "Виталий Смирнов": "+7 (965) 012-30-74",
+  "Александр Попов": "+7 (999) 219-41-28"
 };
 
 export const metadata = buildMetadata({
@@ -77,30 +83,23 @@ export default async function AboutPage() {
             </div>
             <div className="grid grid-3">
               {team.map((member) => {
-                const isVitaliy = member.name === "Виталий Смирнов";
                 const imageSrc = member.image || "/images/quartz-surface-light.svg";
 
                 return (
                   <article key={member.id} className="card card--glass media-card">
                     <Image
-                      className="media-image"
+                      className="media-image about-team-image"
                       src={imageSrc}
                       alt={member.name}
                       width={1600}
                       height={1000}
-                      style={
-                        isVitaliy
-                          ? {
-                              height: 360,
-                              objectFit: "cover",
-                              objectPosition: "center 42%"
-                            }
-                          : undefined
-                      }
                     />
                     <div className="media-card__content stack">
                       <h3>{member.name}</h3>
                       <span className="muted">{member.role}</span>
+                      {teamPhonesByName[member.name] ? (
+                        <a href={toTelHref(teamPhonesByName[member.name])}>{teamPhonesByName[member.name]}</a>
+                      ) : null}
                       <p>{member.bio}</p>
                     </div>
                   </article>

@@ -23,7 +23,6 @@ type LeadDedupStore = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __leadDedupStore__: LeadDedupStore | undefined;
 }
 

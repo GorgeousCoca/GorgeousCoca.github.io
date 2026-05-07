@@ -38,11 +38,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.8
     })),
-    ...stones.map((stone) => ({
-      url: absoluteUrl(`/catalog-kamnya/${stone.stoneType}/${stone.slug}`),
-      changeFrequency: "weekly" as const,
-      priority: 0.75
-    })),
     ...brands.map((brand) => ({
       url: absoluteUrl(`/catalog-kamnya/brands/${brand.slug}`),
       changeFrequency: "weekly" as const,

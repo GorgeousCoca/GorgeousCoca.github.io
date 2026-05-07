@@ -21,7 +21,6 @@ type GlobalStore = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __rateLimitStore__: GlobalStore | undefined;
 }
 

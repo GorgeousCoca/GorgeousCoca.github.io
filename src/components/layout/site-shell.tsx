@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { SiteHeader } from "@/components/layout/site-header";
+import { getCompanyPhones, toTelHref } from "@/lib/company-phones";
 import { getSettings } from "@/lib/site";
 
 export async function SiteShell({ children }: { children: React.ReactNode }) {
@@ -28,7 +29,11 @@ export async function SiteShell({ children }: { children: React.ReactNode }) {
             </div>
             <div className="stack">
               <strong>Контакты</strong>
-              <span>{settings.phone}</span>
+              {getCompanyPhones(settings).map((phone) => (
+                <a key={phone} href={toTelHref(phone)}>
+                  {phone}
+                </a>
+              ))}
               <span>{settings.email}</span>
               <span>{settings.address}</span>
               <a href="https://vk.com/club230045850?ysclid=mo5ny4mikt343003951" rel="noreferrer" target="_blank">

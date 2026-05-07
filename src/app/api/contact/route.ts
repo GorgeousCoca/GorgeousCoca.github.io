@@ -18,8 +18,65 @@ const schema = z.object({
   website: z.string().max(0).optional().default("")
 });
 
+type LeadDedupStore = {
+  recent: Map<string, number>;
+};
+
+declare global {
+  // eslint-disable-next-line no-var
+  var __leadDedupStore__: LeadDedupStore | undefined;
+}
+
+function getLeadDedupStore() {
+  if (!globalThis.__leadDedupStore__) {
+    globalThis.__leadDedupStore__ = { recent: new Map() };
+  }
+  return globalThis.__leadDedupStore__;
+}
+
+function normalizePhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("8")) {
+    return `+7${digits.slice(1)}`;
+  }
+  if (digits.length === 11 && digits.startsWith("7")) {
+    return `+${digits}`;
+  }
+  if (digits.length === 10) {
+    return `+7${digits}`;
+  }
+  if (value.trim().startsWith("+")) {
+    return value.trim();
+  }
+  return `+${digits}`;
+}
+
+function isDuplicateLead(key: string, windowMs: number) {
+  const now = Date.now();
+  const store = getLeadDedupStore();
+
+  for (const [existingKey, timestamp] of store.recent.entries()) {
+    if (timestamp < now - windowMs) {
+      store.recent.delete(existingKey);
+    }
+  }
+
+  const latestTimestamp = store.recent.get(key);
+  if (latestTimestamp && latestTimestamp >= now - windowMs) {
+    return true;
+  }
+
+  store.recent.set(key, now);
+  return false;
+}
+
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Некорректный JSON в запросе" }, { status: 400 });
+  }
   const ip = getClientIp(request);
   const limit = checkRateLimit({
     key: `contact-form:${ip}`,
@@ -43,12 +100,26 @@ export async function POST(request: Request) {
   const parsed = schema.safeParse(body);
 
   if (!parsed.success) {
-    return NextResponse.json({ error: "Validation failed" }, { status: 400 });
+    return NextResponse.json({ error: "Проверьте корректность полей формы." }, { status: 400 });
+  }
+
+  const normalizedPhone = normalizePhone(parsed.data.phone);
+  if (!/^\+?[1-9]\d{9,14}$/.test(normalizedPhone)) {
+    return NextResponse.json({ error: "Телефон указан в неверном формате." }, { status: 400 });
+  }
+
+  const dedupKey = [
+    normalizedPhone.toLowerCase(),
+    parsed.data.email.trim().toLowerCase(),
+    parsed.data.comment.trim().toLowerCase()
+  ].join("|");
+  if (isDuplicateLead(dedupKey, 2 * 60 * 1000)) {
+    return NextResponse.json({ error: "Похожая заявка уже отправлена. Подождите 1-2 минуты." }, { status: 409 });
   }
 
   const record = await createContactRequest({
     name: parsed.data.name,
-    phone: parsed.data.phone,
+    phone: normalizedPhone,
     email: parsed.data.email,
     source: parsed.data.source,
     message: [
@@ -65,5 +136,29 @@ export async function POST(request: Request) {
   } catch {
     mailStatus = { delivered: false, reason: "mail-send-error" };
   }
-  return NextResponse.json({ record, mailStatus }, { status: 201 });
+
+  if (!mailStatus.delivered) {
+    const messageByReason: Record<string, string> = {
+      "mail-config-missing":
+        "SMTP не настроен. Заполните SMTP_HOST, SMTP_USER, SMTP_PASSWORD, MAIL_TO и перезапустите сервер.",
+      "mail-auth-error":
+        "SMTP авторизация не прошла. Проверьте SMTP_USER и пароль приложения SMTP_PASSWORD в Яндексе.",
+      "mail-send-error":
+        "Не удалось отправить письмо через SMTP. Проверьте настройки почтового сервера."
+    };
+    return NextResponse.json(
+      {
+        ok: true,
+        warning:
+          messageByReason[mailStatus.reason ?? ""] ??
+          "Заявка сохранена, но письмо не отправилось. Проверьте SMTP-настройки.",
+        record,
+        mailStatus,
+        persistedOnly: true
+      },
+      { status: 201 }
+    );
+  }
+
+  return NextResponse.json({ ok: true, record, mailStatus }, { status: 201 });
 }

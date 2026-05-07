@@ -104,6 +104,8 @@ export type ContactRequest = {
   email: string;
   message: string;
   source: string;
+  deliveryStatus?: "pending" | "delivered" | "failed_mail";
+  mailError?: string;
   createdAt: string;
 };
 
@@ -112,6 +114,7 @@ export type CompanySettings = SeoFields & {
   companyName: string;
   legalName: string;
   phone: string;
+  secondaryPhone?: string;
   email: string;
   address: string;
   metro: string;

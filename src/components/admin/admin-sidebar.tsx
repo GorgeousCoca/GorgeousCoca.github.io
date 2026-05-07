@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { AdminLogoutButton } from "@/components/admin/admin-logout-button";
+import { AdminSidebarNav } from "@/components/admin/admin-sidebar-nav";
 
 const items = [
   { href: "/admin", label: "Обзор" },
@@ -25,11 +24,7 @@ export function AdminSidebar() {
         <span className="muted">Управление контентом и SEO-полями</span>
       </div>
       <nav className="admin-nav">
-        {items.map((item) => (
-          <Link key={item.href} href={item.href}>
-            {item.label}
-          </Link>
-        ))}
+        <AdminSidebarNav items={items} />
         <AdminLogoutButton />
       </nav>
     </aside>

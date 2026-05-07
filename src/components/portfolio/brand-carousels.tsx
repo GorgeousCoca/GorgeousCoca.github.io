@@ -10,6 +10,7 @@ type BrandGroup = {
   brand: string;
   caption: string;
   catalogBrandParam: string;
+  priceFrom: number;
   images: { src: string; alt: string }[];
 };
 
@@ -23,6 +24,7 @@ const brandGroups: BrandGroup[] = [
     brand: "Avant Quartz",
     caption: "Премиальные столешницы, подоконники и острова",
     catalogBrandParam: "avant",
+    priceFrom: 45000,
     images: [
       { src: "/images/portfolio-brands/Avant_Quartz-01.jpg", alt: "Avant Quartz: реализованный проект 1" },
       { src: "/images/portfolio-brands/Avant_Quartz-02.jpg", alt: "Avant Quartz: реализованный проект 2" },
@@ -40,6 +42,7 @@ const brandGroups: BrandGroup[] = [
     brand: "Avarus",
     caption: "Практичные решения для кухни и ванной",
     catalogBrandParam: "avarus",
+    priceFrom: 50000,
     images: [
       { src: "/images/portfolio-brands/Avarus-01.jpg", alt: "Avarus: реализованный проект 1" },
       { src: "/images/portfolio-brands/Avarus-02.jpg", alt: "Avarus: реализованный проект 2" },
@@ -55,6 +58,7 @@ const brandGroups: BrandGroup[] = [
     brand: "Nobell Quartz",
     caption: "Кейсы с акцентом на текстуру и цветовую глубину",
     catalogBrandParam: "noblle",
+    priceFrom: 47500,
     images: [
       { src: "/images/portfolio-brands/Nobell_Quartz-01.jpg", alt: "Nobell Quartz: реализованный проект 1" },
       { src: "/images/portfolio-brands/Nobell_Quartz-02.jpg", alt: "Nobell Quartz: реализованный проект 2" },
@@ -67,6 +71,7 @@ const brandGroups: BrandGroup[] = [
     brand: "Smart Quartz",
     caption: "Современные минималистичные интерьеры",
     catalogBrandParam: "smart",
+    priceFrom: 49000,
     images: [
       { src: "/images/portfolio-brands/Smart_Quartz-01.jpg", alt: "Smart Quartz: реализованный проект 1" },
       { src: "/images/portfolio-brands/Smart_Quartz-02.jpg", alt: "Smart Quartz: реализованный проект 2" },
@@ -81,6 +86,8 @@ export function BrandCarousels() {
     () => Object.fromEntries(brandGroups.map((group) => [group.brand, 0])) as Record<string, number>
   );
   const [activeCarousel, setActiveCarousel] = useState<ActiveCarousel | null>(null);
+
+  const formatRub = (value: number) => new Intl.NumberFormat("ru-RU").format(value);
 
   const shift = useCallback((brand: string, total: number, direction: -1 | 1) => {
     setIndices((current) => {
@@ -214,7 +221,7 @@ export function BrandCarousels() {
                       Перейти в каталог камней
                     </Link>
                   </div>
-                  <p className={styles.showcasePrice}>Цена от ... руб./м²</p>
+                  <p className={styles.showcasePrice}>Цена от {formatRub(group.priceFrom)} руб./м²</p>
                   <Link className={`button ${styles.showcaseButton}`} href="/calculator">
                     Рассчитать стоимость
                   </Link>

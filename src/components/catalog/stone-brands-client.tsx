@@ -25,6 +25,9 @@ const swatchBackgrounds = [
 ];
 
 function cardTone(stone: StoneSample, index: number) {
+  if (stone.image && !stone.image.includes("quartz-surface-light.svg")) {
+    return `linear-gradient(140deg, rgba(5, 14, 13, 0.18), rgba(3, 9, 8, 0.4)), url("${encodeURI(stone.image)}") center/cover no-repeat`;
+  }
   if (stone.title.toLowerCase().includes("black") || stone.color.toLowerCase().includes("чер")) {
     return "linear-gradient(140deg, #1b1d22, #030406)";
   }

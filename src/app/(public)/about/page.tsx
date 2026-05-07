@@ -78,7 +78,7 @@ export default async function AboutPage() {
             <div className="grid grid-3">
               {team.map((member) => {
                 const isVitaliy = member.name === "Виталий Смирнов";
-                const imageSrc = isVitaliy ? "/images/фото-Виталика.jpg" : "/images/quartz-surface-light.svg";
+                const imageSrc = member.image || "/images/quartz-surface-light.svg";
 
                 return (
                   <article key={member.id} className="card card--glass media-card">

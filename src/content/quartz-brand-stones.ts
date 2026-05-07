@@ -1,8 +1,25 @@
-import type { StoneSample } from "@/types/content";
+﻿import type { StoneSample } from "@/types/content";
 
 type BrandSeed = {
   manufacturer: string;
   items: string[];
+};
+
+const imageFolderByManufacturer: Record<string, string> = {
+  "Avant Quartz": "Avant_Quartz",
+  Avarus: "Avarus",
+  "Smart Quartz": "Smart_Quartz",
+  "Noblle Quartz": "Noblle_Quartz",
+  "Etna Quartz": "Etna_Quartz",
+  Caesarstone: "Caesarstone",
+  TechniStone: "Technistone",
+  "Still Stone": "Still_Stone",
+  Belenco: "belenco/Камни Belenco",
+  Asterum: "Asterum",
+  Radianz: "Radianz_Quartz",
+  Vicostone: "Vicostone",
+  "Quantra Quartz": "Quantra_Quartz",
+  "Aleph Stone": "Aleph_Stone"
 };
 
 const avantRoundedPrices: Record<string, number> = {
@@ -163,6 +180,14 @@ function inferThicknesses(title: string) {
   return ["20 мм", "30 мм"];
 }
 
+function toStoneImage(manufacturer: string, title: string) {
+  const folder = imageFolderByManufacturer[manufacturer];
+  if (!folder) {
+    return "/images/quartz-surface-light.svg";
+  }
+  return `/images/${folder}/${title}.webp`;
+}
+
 function makeStones(seed: BrandSeed): StoneSample[] {
   const brandSlug = slugify(seed.manufacturer.replace(/quartz/gi, "").trim());
   return seed.items.map((title, index) => ({
@@ -176,7 +201,7 @@ function makeStones(seed: BrandSeed): StoneSample[] {
     thicknesses: inferThicknesses(title),
     finish: inferFinish(title),
     description: `Кварцевый агломерат ${seed.manufacturer} для кухонь, ванных и коммерческих пространств.`,
-    image: "/images/quartz-surface-light.svg",
+    image: toStoneImage(seed.manufacturer, title),
     isFeatured: index < 4,
     priceFrom:
       seed.manufacturer === "Avant Quartz"

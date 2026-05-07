@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { ContactForm } from "@/components/forms/contact-form";
+import { formatCompanyPhones, getCompanyPhones } from "@/lib/company-phones";
 import type { CompanySettings, Product, Project, Testimonial } from "@/types/content";
 
 import styles from "./avantgarde-home.module.scss";

@@ -813,9 +813,25 @@ body.catalog-emerald-theme .page-hero .section-title {
   text-align: left;
 }
 
+.admin-nav__link {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
 .admin-nav a:hover,
 .admin-nav button:hover {
   background: rgba(36, 54, 79, 0.05);
+}
+
+.admin-nav__link--active {
+  background: rgba(31, 45, 69, 0.12);
+  border-color: rgba(31, 45, 69, 0.28);
+  color: var(--accent-strong);
+  font-weight: 600;
 }
 
 .admin-toolbar {

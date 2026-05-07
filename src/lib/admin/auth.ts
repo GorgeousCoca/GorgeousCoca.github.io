@@ -8,9 +8,10 @@ const SESSION_AUDIENCE = "admin";
 const SESSION_TTL_SECONDS = 60 * 60 * 8;
 
 function getSessionSecret() {
+  const configuredSecret = process.env.ADMIN_SESSION_SECRET?.trim();
+  const fallbackSecret = `${process.env.ADMIN_EMAIL ?? ""}:${process.env.ADMIN_PASSWORD ?? ""}`.trim();
   const baseSecret =
-    process.env.ADMIN_SESSION_SECRET ??
-    `${process.env.ADMIN_EMAIL ?? ""}:${process.env.ADMIN_PASSWORD ?? ""}`;
+    configuredSecret || (process.env.NODE_ENV === "development" ? fallbackSecret : "");
 
   if (!baseSecret.trim()) {
     return null;
@@ -31,6 +32,10 @@ function safeEqual(expected: string | undefined, received: string) {
   }
 
   return timingSafeEqual(expectedBuffer, receivedBuffer);
+}
+
+function normalizeEmail(value: string | undefined) {
+  return (value ?? "").trim().toLowerCase();
 }
 
 export async function isAdminAuthorized() {
@@ -86,5 +91,8 @@ export async function clearAdminSession() {
 }
 
 export async function validateAdminCredentials(email: string, password: string) {
-  return safeEqual(process.env.ADMIN_EMAIL, email) && safeEqual(process.env.ADMIN_PASSWORD, password);
+  return (
+    safeEqual(normalizeEmail(process.env.ADMIN_EMAIL), normalizeEmail(email)) &&
+    safeEqual(process.env.ADMIN_PASSWORD, password.trim())
+  );
 }

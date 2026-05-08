@@ -17,7 +17,6 @@ export default async function HomePage() {
       settings={settings}
       featuredProducts={featured.featuredProducts}
       featuredProjects={featured.featuredProjects}
-      testimonials={featured.testimonials}
       workflow={workflow}
       manifesto={[
         {

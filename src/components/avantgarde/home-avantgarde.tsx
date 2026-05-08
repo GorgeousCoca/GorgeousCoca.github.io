@@ -1,20 +1,38 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import { ContactForm } from "@/components/forms/contact-form";
 import { getCompanyPhones } from "@/lib/company-phones";
-import type { CompanySettings, Product, Project, Testimonial } from "@/types/content";
+import type { CompanySettings, Product, Project } from "@/types/content";
 
 import styles from "./avantgarde-home.module.scss";
 import { Hero } from "./hero";
-import { ProcessTimeline } from "./process-timeline";
+
+const ProcessTimeline = dynamic(
+  () => import("./process-timeline").then((mod) => mod.ProcessTimeline),
+  {
+    loading: () => <div className={styles.timelinePlaceholder} aria-hidden />
+  }
+);
+
+const ContactForm = dynamic(
+  () => import("@/components/forms/contact-form").then((mod) => mod.ContactForm),
+  {
+    loading: () => (
+      <div
+        className={`${styles.contactFormDark} ${styles.contactFormPlaceholder}`}
+        aria-busy="true"
+        aria-label="Загрузка формы"
+      />
+    )
+  }
+);
 
 type HomeAvantgardeProps = {
   settings: CompanySettings;
   featuredProducts: Product[];
   featuredProjects: Project[];
-  testimonials: Testimonial[];
   manifesto: { title: string; text: string }[];
   workflow: string[];
 };
@@ -23,7 +41,6 @@ export function HomeAvantgarde({
   settings,
   featuredProducts,
   featuredProjects: _featuredProjects,
-  testimonials,
   manifesto: _manifesto,
   workflow
 }: HomeAvantgardeProps) {
@@ -63,8 +80,6 @@ export function HomeAvantgarde({
       calcHref: "/calculator"
     }
   ];
-
-  const visibleTestimonials = testimonials.slice(0, 6);
 
   return (
     <div className={styles.home}>
@@ -142,23 +157,6 @@ export function HomeAvantgarde({
               <p>Адрес: {settings.address}</p>
             </article>
             <ContactForm source="home-avantgarde" className={styles.contactFormDark} />
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <h2>Отзывы клиентов</h2>
-            <p>Реальные отклики по реализованным проектам.</p>
-          </div>
-          <div className={styles.reviewsGrid}>
-            {visibleTestimonials.map((item) => (
-              <article key={item.id} className={`${styles.glassCard} ${styles.reviewCard}`}>
-                <p className={styles.reviewQuote}>&ldquo;{item.quote}&rdquo;</p>
-                <p className={styles.reviewMeta}>
-                  {item.author} - {item.role}
-                </p>
-              </article>
-            ))}
           </div>
         </section>
       </div>

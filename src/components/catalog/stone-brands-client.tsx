@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { formatPrice, hasListedPricePerSqm } from "@/lib/utils";
@@ -14,6 +14,9 @@ type StoneBrandsClientProps = {
   stones: StoneSample[];
   brands: StoneBrand[];
 };
+
+const BRAND_SEARCH_DEBOUNCE_MS = 300;
+const SWATCH_PAGE_SIZE = 36;
 
 const swatchBackgrounds = [
   "linear-gradient(140deg, #0f2c27, #051310)",
@@ -43,7 +46,32 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
   const searchParams = useSearchParams();
   const activeBrand = searchParams.get("brand");
   const [brandQuery, setBrandQuery] = useState("");
+  const [debouncedBrandQuery, setDebouncedBrandQuery] = useState("");
+  const [visibleSwatchCount, setVisibleSwatchCount] = useState(SWATCH_PAGE_SIZE);
   const [isPending, startTransition] = useTransition();
+  const [isBrandMenuOpen, setIsBrandMenuOpen] = useState(false);
+  const brandComboRef = useRef<HTMLDivElement | null>(null);
+  const brandInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setDebouncedBrandQuery(brandQuery), BRAND_SEARCH_DEBOUNCE_MS);
+    return () => window.clearTimeout(id);
+  }, [brandQuery]);
+
+  useEffect(() => {
+    function onPointerDown(event: PointerEvent) {
+      if (!brandComboRef.current) return;
+      if (!brandComboRef.current.contains(event.target as Node)) {
+        setIsBrandMenuOpen(false);
+      }
+    }
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => window.removeEventListener("pointerdown", onPointerDown);
+  }, []);
+
+  useEffect(() => {
+    setVisibleSwatchCount(SWATCH_PAGE_SIZE);
+  }, [activeBrand]);
 
   function applyBrandFilter(nextBrand: string | null) {
     if ((nextBrand ?? null) === (activeBrand ?? null)) {
@@ -65,13 +93,13 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
   }
 
   const visibleBrands = useMemo(() => {
-    const query = brandQuery.trim().toLowerCase();
+    const query = debouncedBrandQuery.trim().toLowerCase();
     if (!query) {
       return brands;
     }
     return brands.filter((brand) => brand.name.toLowerCase().includes(query));
-  }, [brandQuery, brands]);
-  const hintedBrands = visibleBrands.slice(0, 8);
+  }, [debouncedBrandQuery, brands]);
+  const hintedBrands = visibleBrands.slice(0, 10);
 
   const filtered = useMemo(() => {
     if (!activeBrand) {
@@ -79,6 +107,31 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
     }
     return stones.filter((stone) => manufacturerToSlug(stone.manufacturer) === activeBrand);
   }, [activeBrand, stones]);
+
+  const visibleStones = useMemo(
+    () => filtered.slice(0, visibleSwatchCount),
+    [filtered, visibleSwatchCount]
+  );
+
+  const remainingSwatches = filtered.length - visibleStones.length;
+  const totalBrands = brands.length;
+  const visibleBrandsCount = visibleBrands.length;
+  const activeBrandMeta = brands.find((brand) => brand.slug === activeBrand);
+  const showBrandMenu = isBrandMenuOpen && (brandQuery.trim().length > 0 || !activeBrand);
+  const comboboxHelpId = "brand-combobox-help";
+  const comboboxListId = "brand-combobox-list";
+
+  function pickBrand(brand: StoneBrand | null) {
+    if (brand) {
+      setBrandQuery(brand.name);
+      applyBrandFilter(brand.slug);
+    } else {
+      setBrandQuery("");
+      applyBrandFilter(null);
+    }
+    setIsBrandMenuOpen(false);
+    window.setTimeout(() => brandInputRef.current?.focus(), 0);
+  }
 
   return (
     <section className={styles.catalogSurface}>
@@ -94,32 +147,87 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
           </div>
 
           <div className={styles.filterGrid}>
-            <label className="stack">
-              <span>Название бренда</span>
-              <input
-                className="field"
-                placeholder="Например: Caesarstone, Avant, Belenco"
-                value={brandQuery}
-                onChange={(event) => setBrandQuery(event.target.value)}
-              />
-            </label>
-            <label className="stack">
-              <span>Выбранный бренд</span>
-              <select
-                className="select"
-                value={activeBrand ?? ""}
-                onChange={(event) => {
-                  applyBrandFilter(event.target.value || null);
-                }}
-              >
-                <option value="">Все бренды</option>
-                {visibleBrands.map((brand) => (
-                  <option key={brand.slug} value={brand.slug}>
-                    {brand.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="stack" ref={brandComboRef}>
+              <span>Бренд</span>
+              <div className={styles.brandCombo}>
+                <input
+                  ref={brandInputRef}
+                  className={`field ${styles.brandComboInput}`}
+                  placeholder="Начните вводить: Caesarstone, Avant, Belenco…"
+                  value={brandQuery}
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded={showBrandMenu}
+                  aria-controls={comboboxListId}
+                  aria-describedby={comboboxHelpId}
+                  onFocus={() => setIsBrandMenuOpen(true)}
+                  onChange={(event) => {
+                    setBrandQuery(event.target.value);
+                    setIsBrandMenuOpen(true);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Escape") {
+                      setIsBrandMenuOpen(false);
+                      return;
+                    }
+                    if (event.key === "Enter") {
+                      const first = visibleBrands[0];
+                      if (first) {
+                        pickBrand(first);
+                      }
+                    }
+                  }}
+                />
+                {activeBrand ? (
+                  <button
+                    type="button"
+                    className={styles.brandComboClear}
+                    onClick={() => pickBrand(null)}
+                    aria-label="Сбросить выбранный бренд"
+                  >
+                    ×
+                  </button>
+                ) : null}
+              </div>
+
+              <span id={comboboxHelpId} className={styles.fieldHint}>
+                {activeBrandMeta
+                  ? `Выбран бренд: ${activeBrandMeta.name}${
+                      typeof activeBrandMeta.count === "number" ? ` — ${activeBrandMeta.count} декоров` : ""
+                    }.`
+                  : "Введите название и выберите бренд из списка — ниже появятся материалы."}
+              </span>
+
+              {showBrandMenu ? (
+                <div className={styles.brandMenu} id={comboboxListId} role="listbox">
+                  {visibleBrands.length ? (
+                    visibleBrands.slice(0, 12).map((brand) => (
+                      <button
+                        key={brand.slug}
+                        type="button"
+                        role="option"
+                        aria-selected={brand.slug === activeBrand}
+                        className={`${styles.brandMenuItem} ${brand.slug === activeBrand ? styles.brandMenuItemActive : ""}`}
+                        onClick={() => pickBrand(brand)}
+                      >
+                        <span className={styles.brandMenuName}>{brand.name}</span>
+                        <span className={styles.brandMenuCount}>{brand.count}</span>
+                      </button>
+                    ))
+                  ) : (
+                    <div className={styles.brandMenuEmpty}>Ничего не найдено. Проверьте написание.</div>
+                  )}
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          <div className={styles.filterStatusRow} aria-live="polite">
+            <span className={styles.filterStatus}>
+              {brandQuery
+                ? `Найдено брендов: ${visibleBrandsCount} из ${totalBrands}`
+                : `Всего брендов в каталоге: ${totalBrands}`}
+            </span>
           </div>
 
           <div className={styles.hintsArea}>
@@ -132,8 +240,7 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
                       className={styles.hintChip}
                       type="button"
                       onClick={() => {
-                        setBrandQuery(brand.name);
-                        applyBrandFilter(brand.slug);
+                        pickBrand(brand);
                       }}
                     >
                       {brand.name}
@@ -191,7 +298,7 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
           </div>
 
           <div className={styles.swatchesGrid}>
-            {filtered.map((stone, index) => (
+            {visibleStones.map((stone, index) => (
               <article key={stone.id} className={styles.swatchCard} style={{ background: cardTone(stone, index) }}>
                 <div className={styles.swatchInner}>
                   <span className={styles.swatchTitle}>{stone.title}</span>
@@ -205,6 +312,17 @@ export function StoneBrandsClient({ stones, brands }: StoneBrandsClientProps) {
               </article>
             ))}
           </div>
+          {remainingSwatches > 0 ? (
+            <div className={styles.loadMoreRow}>
+              <button
+                className="button-secondary"
+                type="button"
+                onClick={() => setVisibleSwatchCount((n) => n + SWATCH_PAGE_SIZE)}
+              >
+                Показать ещё ({remainingSwatches})
+              </button>
+            </div>
+          ) : null}
         </>
       ) : null}
     </section>

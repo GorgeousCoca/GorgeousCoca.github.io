@@ -11,16 +11,14 @@ export function CalculatorForm() {
   const [width, setWidth] = useState(600);
   const material: "quartz" = "quartz";
   const [thickness, setThickness] = useState<"12" | "20" | "30">("20");
-  const [sinkCutout, setSinkCutout] = useState(true);
-  const [hobCutout, setHobCutout] = useState(false);
 
   const price = useMemo(
-    () => estimatePrice({ length, width, material, thickness, sinkCutout, hobCutout }),
-    [hobCutout, length, material, sinkCutout, thickness, width]
+    () => estimatePrice({ length, width, material, thickness }),
+    [length, material, thickness, width]
   );
 
   const query = new URLSearchParams({
-    message: `Расчет с калькулятора: ${length}x${width} мм, материал ${material}, толщина ${thickness} мм, мойка ${sinkCutout ? "да" : "нет"}, варочная панель ${hobCutout ? "да" : "нет"}`
+    message: `Расчет с калькулятора: ${length}x${width} мм, материал ${material}, толщина ${thickness} мм`
   }).toString();
 
   return (
@@ -66,21 +64,13 @@ export function CalculatorForm() {
             </select>
           </label>
         </div>
-        <label className="pill">
-          <input checked={sinkCutout} type="checkbox" onChange={() => setSinkCutout((value) => !value)} />
-          &nbsp;Вырез под мойку
-        </label>
-        <label className="pill">
-          <input checked={hobCutout} type="checkbox" onChange={() => setHobCutout((value) => !value)} />
-          &nbsp;Вырез под варочную панель
-        </label>
       </form>
 
       <div className="price-box">
         <span>Примерная стоимость</span>
         <strong style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>{formatPrice(price)} руб.</strong>
         <p style={{ color: "rgba(255,255,255,0.8)" }}>
-          Итог зависит от профиля, количества вырезов, логистики и сложности монтажа.
+          Итог зависит от профиля кромки, логистики и сложности монтажа; вырезы и фурнитура уточняются при замере.
         </p>
         <div className="btn-row">
           <Link className="button-secondary" href={`/contacts?${query}`}>

@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   return (
     <section className="section">
       <div className="container">
-        <article className="card stack">
+        <article className="card stack content-prose">
           <h1 className="section-title">Политика конфиденциальности</h1>
           <p>
             Настоящая политика определяет порядок обработки и защиты персональных данных, которые

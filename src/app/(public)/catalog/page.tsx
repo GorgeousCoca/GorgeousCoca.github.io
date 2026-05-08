@@ -1,10 +1,15 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import { ProcessTimeline } from "@/components/avantgarde/process-timeline";
 import { PageHero } from "@/components/ui/content";
 import { getCompanyPhones } from "@/lib/company-phones";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getSettings } from "@/lib/site";
+
+const ProcessTimeline = dynamic(
+  () => import("@/components/avantgarde/process-timeline").then((m) => m.ProcessTimeline),
+  { loading: () => <div className="section" style={{ minHeight: 100 }} aria-hidden /> }
+);
 
 const workflow = [
   "Обсуждаем задачу, изделие и желаемый бюджет.",

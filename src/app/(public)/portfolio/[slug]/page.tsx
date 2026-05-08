@@ -1,12 +1,21 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { ContactForm } from "@/components/forms/contact-form";
-import { LightboxGallery } from "@/components/ui/lightbox-gallery";
 import { PageHero } from "@/components/ui/content";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getProjectBySlug, getProjects } from "@/lib/site";
+
+const LightboxGallery = dynamic(() =>
+  import("@/components/ui/lightbox-gallery").then((m) => m.LightboxGallery)
+);
+
+const ContactForm = dynamic(() => import("@/components/forms/contact-form").then((m) => m.ContactForm), {
+  loading: () => (
+    <div className="card card--glass stack" style={{ minHeight: 200 }} aria-busy="true" aria-label="Загрузка формы" />
+  )
+});
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -56,6 +65,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   width={1200}
                   height={900}
                   style={{ height: 260 }}
+                  sizes="(max-width: 900px) 100vw, 35vw"
                 />
                 <div className="media-card__content">
                   <strong>До</strong>
@@ -69,6 +79,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   width={1400}
                   height={980}
                   style={{ height: 260 }}
+                  sizes="(max-width: 900px) 100vw, 35vw"
                 />
                 <div className="media-card__content">
                   <strong>После</strong>

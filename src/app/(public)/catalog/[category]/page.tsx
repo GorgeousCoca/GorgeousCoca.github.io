@@ -1,14 +1,18 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { ProcessTimeline } from "@/components/avantgarde/process-timeline";
 import { MediaCard, PageHero } from "@/components/ui/content";
 import { productTypeLabels } from "@/lib/filters/catalog";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getProducts, getProductsByType } from "@/lib/site";
-import { formatPrice } from "@/lib/utils";
 import type { ProductType } from "@/types/content";
+
+const ProcessTimeline = dynamic(
+  () => import("@/components/avantgarde/process-timeline").then((m) => m.ProcessTimeline),
+  { loading: () => <div className="section" style={{ minHeight: 100 }} aria-hidden /> }
+);
 
 type PageProps = {
   params: Promise<{ category: ProductType }>;
@@ -343,7 +347,6 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
   }
 
   const products = await getProductsByType(category);
-  const minPrice = products.length ? Math.min(...products.map((product) => product.basePrice)) : null;
 
   return (
     <>
@@ -442,7 +445,15 @@ export default async function CatalogCategoryPage({ params }: PageProps) {
               {landing.showcaseExamples.map((item) => (
                 <article key={item.title} className="card card--glass media-card stack">
                   {item.image ? (
-                    <Image className="media-image" src={item.image} alt={item.title} width={800} height={500} style={{ width: '100%', height: '240px', objectFit: 'cover' }} />
+                    <Image
+                      className="media-image"
+                      src={item.image}
+                      alt={item.title}
+                      width={800}
+                      height={500}
+                      sizes="(max-width: 900px) 100vw, 33vw"
+                      style={{ width: "100%", height: "240px", objectFit: "cover" }}
+                    />
                   ) : null}
                   <div className="media-card__content stack">
                     <h3>{item.title}</h3>

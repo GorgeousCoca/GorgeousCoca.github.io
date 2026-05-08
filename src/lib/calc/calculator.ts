@@ -3,8 +3,6 @@ type CalculatorInput = {
   width: number;
   material: "quartz";
   thickness: "12" | "20" | "30";
-  sinkCutout: boolean;
-  hobCutout: boolean;
 };
 
 const materialRates = {
@@ -20,7 +18,6 @@ const thicknessRate = {
 export function estimatePrice(input: CalculatorInput) {
   const area = (input.length / 1000) * (input.width / 1000);
   const base = area * materialRates[input.material] * thicknessRate[input.thickness];
-  const extras = (input.sinkCutout ? 6500 : 0) + (input.hobCutout ? 4500 : 0);
 
-  return Math.round(base + extras);
+  return Math.round(base);
 }

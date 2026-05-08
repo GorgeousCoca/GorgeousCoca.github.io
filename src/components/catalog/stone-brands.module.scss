@@ -124,6 +124,95 @@
   gap: 12px;
 }
 
+.brandCombo {
+  position: relative;
+}
+
+.brandComboInput {
+  padding-right: 46px;
+}
+
+.brandComboClear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(246, 248, 247, 0.9);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.brandComboClear:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(226, 198, 142, 0.45);
+  transform: translateY(-50%) scale(1.02);
+}
+
+.brandMenu {
+  margin-top: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(4, 12, 12, 0.86);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.brandMenuItem {
+  width: 100%;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  color: rgba(246, 248, 247, 0.92);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.brandMenuItem:hover {
+  background: rgba(226, 198, 142, 0.12);
+  color: #f6f8f7;
+}
+
+.brandMenuItemActive {
+  background: rgba(226, 198, 142, 0.18);
+}
+
+.brandMenuName {
+  font-weight: 500;
+}
+
+.brandMenuCount {
+  flex: 0 0 auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(246, 248, 247, 0.82);
+  font-size: 12px;
+}
+
+.brandMenuEmpty {
+  padding: 14px;
+  color: rgba(246, 248, 247, 0.72);
+}
+
+.fieldHint {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: rgba(246, 248, 247, 0.72);
+}
+
 .filterHead {
   display: grid;
   gap: 6px;
@@ -184,6 +273,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+}
+
+.filterStatusRow {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.filterStatus {
+  font-size: 0.9rem;
+  color: rgba(246, 248, 247, 0.7);
 }
 
 .resetButton {
@@ -257,10 +357,28 @@
   color: rgba(246, 248, 247, 0.8);
 }
 
+.loadMoreRow {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 8px;
+}
+
 .swatchesGrid {
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .swatchesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .swatchesGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .swatchCard {
@@ -380,7 +498,19 @@
   margin-top: 18px;
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .fallbackGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .fallbackGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .fallbackCard {

@@ -35,8 +35,7 @@ export async function getFeaturedData() {
     featuredStones: [...store.stoneSamples, ...quartzBrandStones]
       .filter((item) => item.isFeatured)
       .slice(0, 4),
-    featuredProjects: store.projects.slice(0, 3),
-    testimonials: store.testimonials.slice(0, 4)
+    featuredProjects: store.projects.slice(0, 3)
   };
 }
 

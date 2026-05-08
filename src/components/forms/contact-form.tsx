@@ -40,7 +40,7 @@ export function ContactForm({ source, compact = false, className }: ContactFormP
       productType: String(formData.get("productType") ?? "не указан"),
       dimensions: String(formData.get("dimensions") ?? "не указаны"),
       comment: String(formData.get("message") ?? "без комментария"),
-      botCheck: formData.get("botCheck") === "on",
+      botCheck: true,
       website: String(formData.get("website") ?? ""),
       source
     };
@@ -111,10 +111,6 @@ export function ContactForm({ source, compact = false, className }: ContactFormP
         placeholder={compact ? "Кратко опишите задачу" : "Комментарий к заявке: цвет, бренд камня, сроки монтажа"}
         required
       />
-      <label className="pill">
-        <input name="botCheck" required type="checkbox" />
-        &nbsp;Подтверждаю, что я не робот
-      </label>
       <input
         autoComplete="off"
         name="website"

@@ -18,7 +18,8 @@ const teamPhonesByName: Record<string, string> = {
 
 export const metadata = buildMetadata({
   title: "О компании",
-  description: "История компании, производство, команда, сертификаты и гарантии.",
+  description:
+    "Небольшая мастерская в Санкт-Петербурге: производство и сопровождение заказа ведут два человека — без лишних посредников.",
   path: "/about"
 });
 
@@ -29,31 +30,38 @@ export default async function AboutPage() {
     <>
       <PageHero
         eyebrow="О компании"
-        title="Производство, команда и подход к качеству"
+        title="Два человека — от замера до производства"
         titleClassName="catalog-category-hero-title"
-        visualImageSrc="/images/Avarus-Primer.jpg"
-        visualImageAlt="Пример изделия из кварцевого агломерата Avarus"
-        description="Эта страница отвечает на ключевой вопрос клиента: кто будет делать изделие, насколько надежен подрядчик и как устроен контроль качества."
+        descriptionClassName="page-hero__lead page-hero__lead--large"
+        visualBadgeText="Наша команда"
+        visualImageSrc="/images/team-colleagues.png"
+        visualImageAlt="Команда ArtellRock — два специалиста в мастерской"
+        description="За ArtellRock стоит не отдел продаж и не субподрядная сеть, а двое высококвалифицированных специалиста: вы общаетесь с теми же людьми, кто ведёт проект и работает на производстве. Это компактная мастерская, где ответственность не размывается по отделам."
       />
 
       <div className="about-page">
         <section className="section">
           <div className="container grid grid-2 about-top-row">
             <div className="card card--glass stack about-intro-card">
-            <h2>История и философия</h2>
+            <h2>Как мы устроены</h2>
             <p>
-              Мы специализируемся на изготовлении изделий из искусственного камня на заказ в
-              Санкт-Петербурге. Основной принцип компании — сочетать точную технологию с понятным
-              клиентским сервисом.
+              Изделия из кварцевого агломерата на заказ в Санкт-Петербурге и области мы делаем сами —
+              замер, расчёт, распил и обработка, контроль качества и сопровождение до монтажа. Вся
+              «линейка» от заявки до готовой детали проходит через двух специалистов: так проще
+              держать сроки, геометрию и обещания клиенту в одном контексте.
             </p>
             <div className="metrics-grid">
               <div className="metric-card card--glass stack">
-                <strong>Премиальная детализация</strong>
-                <span className="muted">Работаем на точность кромок, стыков и примыканий.</span>
+                <strong>Живое производство</strong>
+                <span className="muted">
+                  Участок обработки и сборки — наш; нет очереди анонимных бригад «на выезд».
+                </span>
               </div>
               <div className="metric-card card--glass stack">
-                <strong>Своя команда</strong>
-                <span className="muted">Без анонимных подрядчиков на критичных этапах.</span>
+                <strong>Один контакт</strong>
+                <span className="muted">
+                  Вопросы по срокам и по станку решают те же люди, с кем вы договаривались в начале.
+                </span>
               </div>
             </div>
             </div>
@@ -67,8 +75,11 @@ export default async function AboutPage() {
                 style={{ height: 390 }}
               />
               <div className="media-card__content">
-                <strong>Производство</strong>
-                <p>Собственный участок обработки и сборки изделий.</p>
+                <strong>Производство на двоих</strong>
+                <p>
+                  Небольшой цех и руки мастеров — без раздутого штата: именно поэтому мы можем
+                  внимательно относиться к каждому заказу.
+                </p>
               </div>
             </div>
           </div>
@@ -78,10 +89,13 @@ export default async function AboutPage() {
           <div className="container">
             <div className="section-header">
               <span className="eyebrow">Команда</span>
-              <h2 className="section-title catalog-category-hero-title">Люди, с которыми клиент взаимодействует лично</h2>
-              <p>Страница команды — одна из самых важных в процессе принятия решения.</p>
+              <h2 className="section-title catalog-category-hero-title">Это и есть вся компания</h2>
+              <p>
+                Ниже — два человека, через которых проходит весь заказ: переговоры, производство и
+                ответственность за результат.
+              </p>
             </div>
-            <div className="grid grid-3">
+            <div className="grid grid-2">
               {team.map((member) => {
                 const imageSrc = member.image || "/images/quartz-surface-light.svg";
 

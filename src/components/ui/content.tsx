@@ -27,19 +27,32 @@ export function PageHero({
   description,
   actions,
   titleClassName,
+  descriptionClassName,
+  actionsClassName,
   visualImageSrc,
   visualImageAlt,
-  visualBadgeText
+  visualBadgeText,
+  heroImageSizes,
+  heroImagePriority
 }: {
   eyebrow?: string;
   title: string;
   description: string;
   actions?: React.ReactNode;
   titleClassName?: string;
+  descriptionClassName?: string;
+  actionsClassName?: string;
   visualImageSrc?: string;
   visualImageAlt?: string;
   visualBadgeText?: string;
+  /** Responsive width hints for LCP/preload (default suits 2-col hero). */
+  heroImageSizes?: string;
+  /** Default true — hero media is typically LCP. */
+  heroImagePriority?: boolean;
 }) {
+  const resolvedTitleClassName = `section-title ${titleClassName ?? ""}`.trim();
+  const resolvedDescriptionClassName = descriptionClassName ?? "";
+
   return (
     <section className="section page-hero">
       <div className="container">
@@ -47,9 +60,9 @@ export function PageHero({
           <div className="page-hero__grid">
             <div className="stack">
               {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
-              <h1 className={`section-title ${titleClassName ?? ""}`.trim()}>{title}</h1>
-              <p>{description}</p>
-              {actions ? <div className="btn-row">{actions}</div> : null}
+              <h1 className={resolvedTitleClassName}>{title}</h1>
+              <p className={resolvedDescriptionClassName}>{description}</p>
+              {actions ? <div className={actionsClassName ?? "btn-row"}>{actions}</div> : null}
             </div>
             <div className="page-hero__visual">
               <Image
@@ -57,6 +70,10 @@ export function PageHero({
                 alt={visualImageAlt ?? "Премиальная композиция из кварцевого агломерата"}
                 width={1600}
                 height={1000}
+                sizes={
+                  heroImageSizes ?? "(max-width: 900px) 100vw, min(52vw, 720px)"
+                }
+                priority={heroImagePriority !== false}
               />
               <div className="page-hero__badge">{visualBadgeText ?? "Quartz. Detail. Installation."}</div>
             </div>
@@ -89,7 +106,14 @@ export function MediaCard({
   return (
     <article className={`card media-card ${className ?? ""}`.trim()}>
       {imageUrl ? (
-        <Image className="media-image" src={imageUrl} alt={title} width={800} height={500} />
+        <Image
+          className="media-image"
+          src={imageUrl}
+          alt={title}
+          width={800}
+          height={500}
+          sizes="(max-width: 900px) 100vw, min(400px, 33vw)"
+        />
       ) : (
         <div className="media-placeholder" aria-hidden="true" />
       )}

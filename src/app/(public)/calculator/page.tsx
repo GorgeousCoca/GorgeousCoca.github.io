@@ -15,24 +15,24 @@ export const metadata = buildMetadata({
 const landing = {
   heroTitle: "Расчёт стоимости изделий из кварца в Санкт-Петербурге",
   heroDescription:
-    "Оцените бюджет по размерам и параметрам до замера: подберите толщину и опции, получите ориентир по стоимости и перейдите к заявке.",
+    "Оцените бюджет по размерам и толщине до замера, получите ориентир по стоимости и перейдите к заявке.",
   heroPromo: "Предварительный расчёт онлайн",
-  heroPriceFrom: "ориентир по материалу и типовым опциям",
+  heroPriceFrom: "ориентир по материалу и толщине",
   heroImageSrc: "/images/portfolio-brands/Avarus-01.jpg",
   heroImageAlt: "Пример изделия из кварцевого агломерата для ориентира по расчёту",
   heroBadgeText: "Ориентир по материалу Avarus",
   introTitle: "Зачем нужен калькулятор перед заказом",
   introText: [
-    "Калькулятор помогает быстро понять порядок цены по площади, толщине и базовым вырезам — без ожидания ответа менеджера.",
+    "Калькулятор помогает быстро понять порядок цены по площади и толщине — без ожидания ответа менеджера.",
     "Это не финальная смета: после замера мы уточним кромку, вырезы, логистику и монтаж, но вы уже будете понимать масштаб бюджета."
   ],
   featureTitle: "Что учитывает расчёт",
   featureIntro:
-    "Модель строится на типовых параметрах кварцевого агломерата и дополнительных операциях, которые чаще всего нужны на кухне.",
+    "Модель строится на типовых параметрах кварцевого агломерата по площади и толщине слэба.",
   sellingPoints: [
     "Площадь по длине и ширине заготовки",
     "Толщина слэба и коэффициент на материал",
-    "Вырезы под мойку и варочную панель как дополнительные операции"
+    "Базовая ставка за материал без учёта вырезов и кромки"
   ],
   pricingTitle: "Как получить точную стоимость после калькулятора",
   pricingText: [
@@ -120,7 +120,7 @@ export default function CalculatorPage() {
 
       <section className="section">
         <div className="container grid grid-2">
-          <article className="card card--glass stack">
+          <article className="card card--glass stack content-prose">
             <h2>{landing.introTitle}</h2>
             <div className="stack">
               {landing.introText.map((paragraph) => (
@@ -135,7 +135,7 @@ export default function CalculatorPage() {
               ))}
             </div>
           </article>
-          <article className="card card--glass stack">
+          <article className="card card--glass stack content-prose">
             <h2>{landing.pricingTitle}</h2>
             <div className="stack">
               {landing.pricingText.map((paragraph) => (
@@ -162,12 +162,12 @@ export default function CalculatorPage() {
 
       <section className="section">
         <div className="container grid grid-3">
-          <article className="card card--glass stack" style={{ gridColumn: "1 / -1" }}>
+          <article className="card card--glass stack content-prose" style={{ gridColumn: "1 / -1" }}>
             <h2>{landing.showcaseTitle}</h2>
             <p>{landing.showcaseText}</p>
           </article>
           {landing.showcaseExamples.map((item) => (
-            <article key={item.title} className="card card--glass media-card stack">
+            <article key={item.title} className="card card--glass media-card stack content-prose">
               {item.image ? (
                 <Image
                   className="media-image"
@@ -176,6 +176,7 @@ export default function CalculatorPage() {
                   width={800}
                   height={500}
                   style={{ width: "100%", height: "240px", objectFit: "cover" }}
+                  sizes="(max-width: 900px) 100vw, 33vw"
                 />
               ) : null}
               <div className="media-card__content stack">
@@ -197,13 +198,13 @@ export default function CalculatorPage() {
             <h2>{landing.trustTitle}</h2>
           </article>
           {landing.trustCards.map((item) => (
-            <article key={item.title} className="card card--glass stack">
+            <article key={item.title} className="card card--glass stack content-prose">
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
           ))}
           {landing.whyCards.map((item) => (
-            <article key={item.title} className="card card--glass stack">
+            <article key={item.title} className="card card--glass stack content-prose">
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -213,12 +214,12 @@ export default function CalculatorPage() {
 
       <section className="section" id="calculator-form">
         <div className="container">
-          <article className="card card--glass stack">
+          <article className="card card--glass stack content-prose">
             <h2 className="section-title" style={{ marginBottom: "0.25rem" }}>
               Онлайн-калькулятор
             </h2>
             <p className="muted" style={{ marginBottom: "1rem" }}>
-              Задайте размеры и опции — сумма обновляется автоматически. Это ориентир по материалу и базовым операциям.
+              Задайте размеры и толщину — сумма обновляется автоматически. Это ориентир по материалу без вырезов и кромки.
             </p>
             <CalculatorForm />
           </article>
@@ -227,7 +228,7 @@ export default function CalculatorPage() {
 
       <section className="section">
         <div className="container">
-          <article className="card card--glass stack">
+          <article className="card card--glass stack content-prose">
             <h2>{landing.finalTitle}</h2>
             <p>{landing.finalText}</p>
             <div className="btn-row">

@@ -1,10 +1,30 @@
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-import { StoneBrandsClient } from "@/components/catalog/stone-brands-client";
 import styles from "@/components/catalog/stone-brands.module.scss";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getStoneBrands } from "@/lib/stone/brands";
 import { getStoneSamples } from "@/lib/site";
+
+const StoneBrandsClient = dynamic(
+  () => import("@/components/catalog/stone-brands-client").then((m) => m.StoneBrandsClient),
+  {
+    loading: () => (
+      <div className={styles.catalogFallback} aria-hidden="true">
+        <div className={`${styles.fallbackLine} ${styles.fallbackLineShort}`} />
+        <div className={`${styles.fallbackLine} ${styles.fallbackLineWide}`} />
+        <div className={`${styles.fallbackLine} ${styles.fallbackLineMedium}`} />
+        <div className={styles.fallbackGrid}>
+          <div className={styles.fallbackCard} />
+          <div className={styles.fallbackCard} />
+          <div className={styles.fallbackCard} />
+          <div className={styles.fallbackCard} />
+          <div className={styles.fallbackCard} />
+          <div className={styles.fallbackCard} />
+        </div>
+      </div>
+    )
+  }
+);
 
 export const metadata = buildMetadata({
   title: "Каталог камня",
@@ -19,25 +39,7 @@ export default async function StoneCatalogPage() {
   return (
     <section className={`section ${styles.catalogPageTheme}`}>
       <div className="container">
-        <Suspense
-          fallback={
-            <div className={styles.catalogFallback} aria-hidden="true">
-              <div className={`${styles.fallbackLine} ${styles.fallbackLineShort}`} />
-              <div className={`${styles.fallbackLine} ${styles.fallbackLineWide}`} />
-              <div className={`${styles.fallbackLine} ${styles.fallbackLineMedium}`} />
-              <div className={styles.fallbackGrid}>
-                <div className={styles.fallbackCard} />
-                <div className={styles.fallbackCard} />
-                <div className={styles.fallbackCard} />
-                <div className={styles.fallbackCard} />
-                <div className={styles.fallbackCard} />
-                <div className={styles.fallbackCard} />
-              </div>
-            </div>
-          }
-        >
-          <StoneBrandsClient stones={stones} brands={brands} />
-        </Suspense>
+        <StoneBrandsClient stones={stones} brands={brands} />
       </div>
     </section>
   );

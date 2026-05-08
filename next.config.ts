@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
   trailingSlash: isGithubActions,
   basePath,
   assetPrefix: basePath || undefined,
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react"]
+  },
   images: {
     remotePatterns: [],
     qualities: [60, 75, 90],

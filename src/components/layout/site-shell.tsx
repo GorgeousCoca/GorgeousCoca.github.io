@@ -50,7 +50,6 @@ export async function SiteShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="site-footer-minimal">
-            <span>59.9343° N, 30.3351° E</span>
             <span>
               © {new Date().getFullYear()} {settings.companyName}
             </span>

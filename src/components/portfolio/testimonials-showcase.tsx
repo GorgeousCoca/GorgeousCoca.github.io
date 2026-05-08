@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 
 import type { Testimonial } from "@/types/content";
@@ -9,6 +10,11 @@ import styles from "./testimonials-showcase.module.scss";
 type TestimonialsShowcaseProps = {
   testimonials: Testimonial[];
 };
+
+const reviewLinks = {
+  vk: "https://vk.com/club230045850?ysclid=mo5ny4mikt343003951",
+  avito: "https://www.avito.ru/"
+} as const;
 
 function initials(name: string) {
   return name
@@ -39,8 +45,20 @@ export function TestimonialsShowcase({ testimonials }: TestimonialsShowcaseProps
   return (
     <section className={styles.section} aria-label="Отзывы о нашей работе">
       <div className={styles.header}>
-        <h2>Отзывы о нашей работе</h2>
-        <p>Реальные отклики клиентов по выполненным проектам.</p>
+        <div className={styles.headerText}>
+          <h2>Отзывы о нашей работе</h2>
+          <p>Реальные отклики клиентов по выполненным проектам.</p>
+        </div>
+        <div className={styles.headerLinks} aria-label="Ссылки на площадки с отзывами">
+          <a href={reviewLinks.avito} target="_blank" rel="noopener noreferrer" className={styles.headerLink}>
+            <Image src="/images/avito-logo.svg" alt="" width={18} height={18} />
+            Avito
+          </a>
+          <a href={reviewLinks.vk} target="_blank" rel="noopener noreferrer" className={styles.headerLink}>
+            <Image src="/images/vk-logo.svg" alt="" width={18} height={18} />
+            ВК
+          </a>
+        </div>
       </div>
 
       <div ref={railRef} className={styles.rail}>

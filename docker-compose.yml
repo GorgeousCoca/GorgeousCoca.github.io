@@ -1,0 +1,24 @@
+# Full Next.js (включая /admin и API). Данные CMS и загрузки лучше вынести на тома или bind-mount.
+# Подготовка: скопируйте .env.example в .env и задайте ADMIN_* и при необходимости SMTP_*.
+#
+# Запуск: docker compose up -d --build
+#
+# Персистентность (раскомментируйте и создайте каталоги):
+#   mkdir -p ./data/uploads
+#   cp src/content/cms-store.json ./data/cms-store.json   # если нужен текущий снимок
+# volumes:
+#   - ./data/cms-store.json:/app/src/content/cms-store.json
+#   - ./data/uploads:/app/public/uploads
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+    # volumes:
+    #   - ./data/cms-store.json:/app/src/content/cms-store.json
+    #   - ./data/uploads:/app/public/uploads

@@ -1,13 +1,15 @@
 import type { NextConfig } from "next";
 
 const isGithubActions = process.env.GITHUB_ACTIONS === "true";
+const useStandalone = process.env.NEXT_STANDALONE === "true";
 const [repositoryOwner = "", repositoryName = ""] = (process.env.GITHUB_REPOSITORY ?? "").split("/");
 const isUserPagesRepo =
   repositoryOwner && repositoryName && repositoryName.toLowerCase() === `${repositoryOwner.toLowerCase()}.github.io`;
 const basePath = isGithubActions && repositoryName && !isUserPagesRepo ? `/${repositoryName}` : "";
 
 const nextConfig: NextConfig = {
-  output: isGithubActions ? "export" : undefined,
+  /** Static export for GitHub Pages; standalone image for Docker / VPS with admin + API. */
+  output: isGithubActions ? "export" : useStandalone ? "standalone" : undefined,
   trailingSlash: isGithubActions,
   basePath,
   assetPrefix: basePath || undefined,

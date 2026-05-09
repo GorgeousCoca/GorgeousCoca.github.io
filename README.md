@@ -24,6 +24,20 @@ npm run dev
 
 Если SMTP не настроен, заявка сохраняется в локальном хранилище CMS, но письмо не отправляется.
 
+## Продакшн с админкой (Docker)
+
+GitHub Pages отдаёт только статику, поэтому **редактирование через `/admin` и API** нужно поднимать отдельно — полноценный `Next.js` на своём сервере или в контейнере.
+
+1. Скопируйте `.env.example` в `.env` и задайте обязательные переменные:
+   - `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET` (в продакшене секрет обязателен, см. `src/lib/admin/auth.ts`)
+   - при необходимости SMTP и `NEXT_PUBLIC_SITE_URL` (публичный URL сайта)
+2. Сборка образа: `docker build -t kvartsevyy-site .`
+3. Запуск: `docker compose up -d --build` (или `docker run --env-file .env -p 3000:3000 kvartsevyy-site`)
+
+Данные CMS хранятся в `src/content/cms-store.json`, загрузки — в `public/uploads`. Чтобы они переживали пересоздание контейнера, раскомментируйте тома в `docker-compose.yml` и подготовьте файлы на хосте (см. комментарии в compose-файле).
+
+Сборка с `NEXT_STANDALONE=true` задаётся в `Dockerfile`; локально по умолчанию по-прежнему обычный `next build` / `next start` без standalone.
+
 ## Деплой на GitHub Pages
 
 1. Запушить проект в GitHub (ветка `main`).
